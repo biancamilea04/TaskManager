@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #170024;
+    background: linear-gradient(332deg, rgba(23, 0, 36, 1) 0%, rgba(76, 9, 121, 1) 35%, rgb(205, 0, 87) 100%);
+}
+
+.wrapper {
+    width: 450px;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.form-box {
+    width: 380px;
+    height: 440px;
+    position: relative;
+    margin: 6% auto;
+    background: rgb(90, 4, 108);
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 15px 2px rgb(79, 8, 94);
+    backdrop-filter: blur(20px);
+    padding: 10px;
+    border-radius: 2em;
+    overflow: hidden;
+}
+
+.button-box {
+    width: 220px;
+    margin: 35px auto;
+    border-radius: 2em;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.21);
+    box-shadow: 0 0 25px 2px rgb(90, 4, 108);
+}
+
+.toggle-btn {
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    position: relative;
+    color: black;
+    font-weight: 400;
+    transition: 0.3s ease;
+    font-size: 15px
+}
+
+.toggle-btn:hover {
+    transform: scale(1.1)
+}
+
+#btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    border-radius: 30px;
+    transition: 0.5s;
+    background: white;
+}
+
+.input-group {
+    top: 155px;
+    position: absolute;
+    width: 280px;
+    transition: .5s ease;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid #ffffff;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 15px
+}
+
+.submit-btn {
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    color: black;
+    background: white;
+    outline: none;
+    border-radius: 30px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+    font-size: 17px
+}
+
+.submit-btn:hover {
+    background-color: transparent;
+    filter: blur();
+    color: white;
+    border: 2px solid white;
+}
+
+#login {
+    left: 50px;
+}
+
+#register{
+    left: 450px;
+}
+
+#register.input-group{
+    top:120px;
+}
+
+input::placeholder{
+    color: white;
+}
+
+.terms{
+    color:white;
+}
+
