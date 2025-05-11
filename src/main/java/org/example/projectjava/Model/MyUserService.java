@@ -30,4 +30,14 @@ public class MyUserService implements UserDetailsService {
         }
         throw new UsernameNotFoundException("User not found: " + username);
     }
+
+    public Optional<MyUser> authenticate(String username, String password) {
+          Optional<MyUser> user = myUserRepository.findByUsername(username);
+          if(user.isPresent()){
+              if(user.get().getPassword().equals(password)){
+                  return user;
+              }
+          }
+          return Optional.empty();
+    }
 }

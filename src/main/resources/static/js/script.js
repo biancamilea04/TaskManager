@@ -25,12 +25,21 @@ function submitLogin(event) {
 
     fetch("/login", {
         method: "POST",
-        body: new URLSearchParams({
+        body: JSON.stringify({
             username: username,
             password: password
         })
     })
-        .then(response => response.text())
+        .then(response => {
+            console.log("ceva", response.status);
+            if (response.ok) {
+                window.location.href = "/home";
+            } else {
+                return response.text().then(text => {
+                    alert("Login eșuat: " + text);
+                });
+            }
+        })
         .then(data => {
             console.log(data);
             alert("Login reușit!");

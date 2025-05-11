@@ -1,27 +1,42 @@
 package org.example.projectjava.Controller;
 
+import org.example.projectjava.Com.RegisterRequest;
 import org.example.projectjava.Model.MyUser;
 import org.example.projectjava.Model.MyUserRepository;
+import org.example.projectjava.Model.MyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class RegistrationController {
 
     @Autowired
     private MyUserRepository myUserRepository;
+    @Autowired
+    private MyUserService myUserService;
 
     @GetMapping("/register")
-    public String loginPage() {
+    public String registerPage() {
         return "registerPage";
     }
 
-    @PostMapping(value="/register",consumes = "application/json")
-    public MyUser createUser(@RequestBody MyUser user){
-           System.out.println(user.getUsername());
-           return myUserRepository.save(user);
+    @PostMapping("/register")
+    public ResponseEntity<MyUser> createUser(@RequestBody RegisterRequest user) {
+        MyUser myUser = new MyUser();
+        myUser.setUsername(user.username);
+        myUser.setPassword(user.password);
+        myUser.setEmail(user.email);
+
+        try {
+            MyUser savedUser = myUserRepository.save(myUser);
+//            myUserRepository.flush();
+            return ResponseEntity.ok(savedUser); // HTTP 200 OK with user info
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // HTTP 500
+        }
     }
 }

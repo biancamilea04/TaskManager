@@ -10,7 +10,7 @@
     <div class="form-box">
          <h1 class="register-title">Register</h1>
 
-        <form id="register" class="input-group" action="/register" onsubmit="submitRegister(event)" method="POST">
+        <form id="register" class="input-group">
             <input id="usernameRegister"
                    type="text"
                    class="input-field"
@@ -32,15 +32,62 @@
                    name="passwordcon"
                    placeholder="Confirm password" required>
 
-            <button id="submitRegister"
-                    type="submit"
+            <button id="submit"
+                    type="button"
                     class="submit-btn">Register
             </button>
         </form>
 
     </div>
 </div>
-<script src="/js/scriptRegister.js"></script>
+<script>
+    const submitButton = document.getElementById("submit");
+    submitButton.addEventListener('click',() =>{
+        console.log("submitRegister apelat");
+
+        const username = document.getElementById("usernameRegister").value;
+        const email = document.getElementById("emailRegister").value;
+        const password = document.getElementById("passwordRegister").value;
+        const confirmPassword = document.getElementById("passwordconRegister").value;
+
+        console.log("Register cu:", username, email, password);
+
+        if (!username || !email || !password) {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Parolele nu coincid!");
+            return;
+        }
+
+        const data = {
+            username: username,
+            email: email,
+            password: password
+        };
+
+        fetch("/register", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+                if (response.ok) return response.text();
+                throw new Error("Eroare la înregistrare!");
+            })
+            .then(data => {
+                console.log(data);
+                alert("Register reușit!");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Eroare la înregistrare!" + error.message);
+            });
+    });
+</script>
 
 </body>
 </html>
