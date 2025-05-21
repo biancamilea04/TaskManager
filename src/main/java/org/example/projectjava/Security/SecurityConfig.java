@@ -1,7 +1,6 @@
 package org.example.projectjava.Security;
 
-import lombok.AllArgsConstructor;
-import org.example.projectjava.Model.MyUserService;
+import org.example.projectjava.Model.Member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,25 +10,31 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@AllArgsConstructor
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig{
 
     @Autowired
-    private final MyUserService myUserService;
+    private MemberService memberService;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return myUserService;
+        return memberService;
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(myUserService);
+        provider.setUserDetailsService(memberService);
         return provider;
     }
 
@@ -38,15 +43,18 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(
-                      httpForm ->
-                      httpForm
-                              .loginPage("/login").permitAll()
+                        httpForm ->
+                                httpForm
+                                        .loginPage("/login").permitAll()
+                                        .loginProcessingUrl("/doLogin")
+                                        .defaultSuccessUrl("/home", true)
                 )
                 .authorizeHttpRequests(
                         authorizeRequests -> {
-                            authorizeRequests.requestMatchers("/login","/register","/css/**","/js/**").permitAll();
+                            authorizeRequests.requestMatchers("/home","/register","/login","/profile","/api/current-username","/api/tasks/**", "/css/**", "/js/**").permitAll();
                             authorizeRequests.anyRequest().authenticated();
                         }
-                ).build();
+                )
+                .build();
     }
 }

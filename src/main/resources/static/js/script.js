@@ -2,6 +2,61 @@ var log = document.getElementById("login")
 var reg = document.getElementById("register")
 var button = document.getElementById("btn")
 
+
+const submitButton = document.getElementById("submit");
+
+submitButton.addEventListener('click', () => {
+    console.log("submitLogin apelat");
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    console.log("Login cu:", email, password);
+
+    if (!email || !password) {
+        alert("Te rugăm să completezi toate câmpurile.");
+        return;
+    }
+
+    const data = {
+        email: email,
+        password: password
+    };
+
+    const dataStirng = JSON.stringify(data);
+
+    fetch("/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: dataStirng
+    })
+        .then(response => {
+            console.log("Status:", response.status);
+
+            if (response.ok) {
+                console.log("Login reușit");
+                window.location.replace("/home");
+                return response.text();
+            }
+
+            return response.text().then(errorMessage => {
+                throw new Error(errorMessage);
+            });
+        })
+        .then(data => {
+            console.log(data);
+            alert("Login reușit!");
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Eroare la autentificare! " + error.message);
+        });
+});
+
+
 function register() {
     log.style.left = "-400px";
     reg.style.left = "50px";
@@ -13,48 +68,3 @@ function login() {
     reg.style.left = "450px"
     button.style.left = "0"
 }
-
-function submitLogin(event) {
-    try{
-    console.log("submitLogin apelat");
-    event.preventDefault();
-
-    var formData = new FormData(document.getElementById("login"));
-    var username = formData.get("usernameLogin");
-    var password = formData.get("passwordLogin");
-
-    fetch("/login", {
-        method: "POST",
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
-    })
-        .then(response => {
-            console.log("ceva", response.status);
-            if (response.ok) {
-                window.location.href = "/home";
-            } else {
-                return response.text().then(text => {
-                    alert("Login eșuat: " + text);
-                });
-            }
-        })
-        .then(data => {
-            console.log(data);
-            alert("Login reușit!");
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-
-    } catch (error) {
-        console.error("Error caught:", error);
-        alert("A apărut o eroare!");
-    }
-}
-
-window.login = login;
-window.register = register;
-window.submitLogin = submitLogin;
-window.submitRegister = submitRegister;

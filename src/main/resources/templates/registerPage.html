@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <link rel="stylesheet" href="/css/register.css">
 </head>
 <body>
 
 <div class="wrapper">
     <div class="form-box">
-         <h1 class="register-title">Register</h1>
-
+          <h1 class="title-register">Create account</h1>
         <form id="register" class="input-group">
-            <input id="usernameRegister"
+            <input id="NameRegister"
                    type="text"
                    class="input-field"
-                   name="username"
-                   placeholder="Username" required>
+                   name="Name"
+                   placeholder="Name" required>
+            <input id="SurnameRegister"
+                   type="text"
+                   class="input-field"
+                   name="Surname"
+                   placeholder="Surname" required>
             <input id="emailRegister"
                    type="text"
                    class="input-field"
@@ -36,58 +41,20 @@
                     type="button"
                     class="submit-btn">Register
             </button>
+
+            <div class="login-link">
+                <p>Already have an account?
+                    <a href="/login" style="text-decoration: none;">
+                        Log in
+                    </a>
+                </p>
+            </div>
         </form>
 
     </div>
 </div>
-<script>
-    const submitButton = document.getElementById("submit");
-    submitButton.addEventListener('click',() =>{
-        console.log("submitRegister apelat");
 
-        const username = document.getElementById("usernameRegister").value;
-        const email = document.getElementById("emailRegister").value;
-        const password = document.getElementById("passwordRegister").value;
-        const confirmPassword = document.getElementById("passwordconRegister").value;
-
-        console.log("Register cu:", username, email, password);
-
-        if (!username || !email || !password) {
-            alert("Please fill in all fields");
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            alert("Parolele nu coincid!");
-            return;
-        }
-
-        const data = {
-            username: username,
-            email: email,
-            password: password
-        };
-
-        fetch("/register", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(response => {
-                if (response.ok) return response.text();
-                throw new Error("Eroare la înregistrare!");
-            })
-            .then(data => {
-                console.log(data);
-                alert("Register reușit!");
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Eroare la înregistrare!" + error.message);
-            });
-    });
-</script>
+<script src="/js/scriptRegister.js"></script>
 
 </body>
 </html>

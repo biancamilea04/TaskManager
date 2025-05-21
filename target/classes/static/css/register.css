@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #170024;
+    background: linear-gradient(332deg, rgba(23, 0, 36, 1) 0%, rgba(76, 9, 121, 1) 35%, rgb(205, 0, 87) 100%);
+}
+
+.wrapper {
+    width: 450px;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.form-box {
+    width: 380px;
+    height: 440px;
+    position: relative;
+    margin: 6% auto;
+    background: rgb(90, 4, 108);
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 15px 2px rgb(79, 8, 94);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 2em;
+    overflow: hidden;
+}
+
+.title-register{
+    color:white;
+    text-align: center;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid #ffffff;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 15px
+}
+
+.input-field::placeholder {
+    color: #ddd;
+}
+
+.input-field:focus {
+    border-bottom: 1px solid #ff69b4;
+    outline: none;
+}
+
+.submit-btn {
+    background-color: #fff;
+    color: #4c0979;
+    border: none;
+    border-radius: 30px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.login-link p a{
+    color: #ff69b4;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link p a:hover {
+    text-decoration: underline;
+}
+
+.login-link {
+    color: #ffffff;
+}

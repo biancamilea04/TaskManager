@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina Proiect</title>
+    <link rel="stylesheet" href="project.css" />
+</head>
+<body>
+
+<div class="navbar">
+    <div class="navbar-left">ASII</div>
+    <div class="navbar-right">
+        <a href="#">Departamente</a>
+        <a href="#">Resurse</a>
+        <a href="#">AG-uri</a>
+        <button class="btn">Button</button>
+    </div>
+</div>
+
+<div class="main">
+    <aside class="sidebar">
+        <h3>Proiecte</h3>
+        <ul>
+            <li><a href="project.html?name=Proiect1&coord=Ana%20Popescu"><span class="icon">📁</span> Proiect1<br><small>Ana Popescu</small></a></li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <div class="project-header">
+            <h1 id="projectName">[Project Name]</h1>
+            <p id="coordName"><strong>Coordonator:</strong> [Coord Name]</p>
+        </div>
+
+        <div class="task-section">
+            <h2>Taskuri în așteptare</h2>
+            <div class="task-list" id="pendingTasks"></div>
+
+            <h2>Taskuri în progres</h2>
+            <div class="task-list" id="inProgressTasks"></div>
+
+            <h2>Taskuri finalizate</h2>
+            <div class="task-list" id="completedTasks"></div>
+        </div>
+    </main>
+</div>
+
+<script src="project.js"></script>
+</body>
+</html>

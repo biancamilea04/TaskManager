@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard ASII</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="navbar-left">
+        <button id="goToHome">ASII</button>
+    </div>
+    <div class="navbar-right">
+        <a href="#">Departamente</a>
+        <a href="#">Resurse</a>
+        <a href="#">AG-uri</a>
+        <div class="user-menu-wrapper">
+            <button class="btn" id="profileBtn">Profil</button>
+            <div class="user-dropdown" id="profileDropdown">
+                <button id="goToProfile">Profil</button>
+                <a href="/loginPage">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main">
+    <aside class="sidebar">
+        <h3>[nume departament]</h3>
+        <p><strong>[coord departament]</strong></p>
+        <ul>
+            <li>
+                <a href="project.html?name=Proiect1&coord=Ana%20Popescu">
+                    <div class="project-item">
+                        <span class="icon">📁</span> Proiect1<br><small>Ana Popescu</small>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="project.html?name=Proiect1&coord=Ana%20Popescu">
+                    <div class="project-item">
+                        <span class="icon">📁</span> Proiect1<br><small>Ana Popescu</small>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="project.html?name=Proiect1&coord=Ana%20Popescu">
+                    <div class="project-item">
+                        <span class="icon">📁</span> Proiect1<br><small>Ana Popescu</small>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <h1 id="welcomeMessage">Hello!</h1>
+        <div class="info">
+            <p>Informațiile tale</p>
+            <p>drept de vot:</p>
+        </div>
+
+        <div class="task-section">
+            <div class="task-table-header">
+                <div>ACTIVITATE IN ASII</div>
+            </div>
+
+            <div class="task-list" id="taskList">
+                <div class="task-card-no-tasks" id="noTasks">
+                    <p id="noTasksMessage" class="no-tasks-msg">Nu ai taskuri</p>
+                </div>
+
+                <button class="add-task-btn">AddTask</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal" id="taskModal">
+    <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h2>Adaugă un nou task</h2>
+        <form id="taskForm">
+            <label for="taskName">Nume task:</label>
+            <input type="text" id="taskName" name="taskName" required>
+
+            <label for="taskDesc">Descriere:</label>
+            <textarea id="taskDesc" name="taskDesc" required></textarea>
+
+            <label for="taskStatus">Status:</label>
+            <select id="taskStatus" name="taskStatus">
+                <option>In curs</option>
+                <option>Finalizat</option>
+                <option>In asteptare</option>
+                <option>Refuzat</option>
+            </select>
+
+            <label for="taskPeriod">Perioada:</label>
+            <input type="date" id="taskPeriod" name="taskPeriod" required>
+
+            <label for="taskHours">Ore de activitate:</label>
+            <input type="number" id="taskHours" name="taskHours" min="0" step="0.1" required>
+
+            <button type="submit">Salveaza task</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="editTaskModal" style="display:none;">
+    <div class="modal-content">
+        <span class="close-button" id="closeEditModal">&times;</span>
+        <h2>Editeaza task</h2>
+        <form id="editTaskForm">
+            <label for="editTaskName">Nume task:</label>
+            <input type="text" id="editTaskName" name="editTaskName" required>
+
+            <label for="editTaskDesc">Descriere:</label>
+            <textarea id="editTaskDesc" name="editTaskDesc" required></textarea>
+
+            <label for="editTaskStatus">Status:</label>
+            <select id="editTaskStatus" name="editTaskStatus">
+                <option>In curs</option>
+                <option>Finalizat</option>
+                <option>In așteptare</option>
+                <option>Refuzat</option>
+            </select>
+
+            <label for="editTaskPeriod">Perioada:</label>
+            <input type="date" id="editTaskPeriod" name="editTaskPeriod" required>
+
+            <label for="editTaskHours">Ore de activitate:</label>
+            <input type="number" id="editTaskHours" name="editTaskHours" min="0" step="0.5" required>
+
+            <button type="submit">Salveaza modificarile</button>
+        </form>
+    </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <p>Sigur vrei să stergi acest task?</p>
+        <button id="confirmDeleteBtn">Da</button>
+        <button id="cancelDeleteBtn">Nu</button>
+    </div>
+</div>
+
+<script src="/js/home.js"></script>
+
+</body>
+</html>
