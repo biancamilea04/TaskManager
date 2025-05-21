@@ -82,13 +82,13 @@ body {
 .user-menu-wrapper {
     position: relative;
 }
-/* Layout */
+
 .main {
     display: flex;
     flex: 1;
 }
 
-/* Sidebar */
+
 .sidebar {
     width: 250px;
     background-color: #f9f9f9;
@@ -112,7 +112,7 @@ body {
     margin-right: 0.5rem;
 }
 
-/* Content */
+
 .content {
     flex: 1;
     padding: 2rem;
@@ -162,7 +162,7 @@ body {
     padding-right: 0.5rem;
 }
 
-/* Task Card */
+
 .task-card {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -211,7 +211,7 @@ body {
     margin-top: auto;
 }
 
-/* Add Button */
+
 .add-task-btn {
     position: absolute;
     bottom: 20px;
@@ -225,7 +225,7 @@ body {
     cursor: pointer;
 }
 
-/* MODAL STYLES */
+
 .modal {
     display: none;
     position: fixed;

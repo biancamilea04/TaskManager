@@ -171,7 +171,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         })
         .catch(error => {
-            console.error("Eroare la încărcarea taskurilor:", error);
+            console.error("Eroare la incarcarea taskurilor:", error);
         });
 });
 
@@ -276,7 +276,7 @@ confirmDeleteBtn.addEventListener("click", async () => {
         });
 
         if (!response.ok) {
-            throw new Error("Eroare la ștergere");
+            throw new Error("Eroare la stergere");
         }
 
         if (currentDeleteCard && currentDeleteCard.parentElement) {

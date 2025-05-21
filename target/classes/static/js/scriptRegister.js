@@ -54,10 +54,10 @@ submitButton.addEventListener('click',() =>{
     })
         .then(data => {
             console.log(data);
-            alert("Register reușit!");
+            alert("Register reusit!");
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Eroare la înregistrare! " + error.message);
+            alert("Eroare la inregistrare! " + error.message);
         });
 });

@@ -51,7 +51,7 @@ public class SecurityConfig{
                 )
                 .authorizeHttpRequests(
                         authorizeRequests -> {
-                            authorizeRequests.requestMatchers("/home","/register","/login","/profile","/api/current-username","/api/tasks/**", "/css/**", "/js/**").permitAll();
+                            authorizeRequests.requestMatchers("/home","/register","/login","/profile","/api/current-username","/api/tasks/**","/api/profile/**", "/css/**", "/js/**").permitAll();
                             authorizeRequests.anyRequest().authenticated();
                         }
                 )

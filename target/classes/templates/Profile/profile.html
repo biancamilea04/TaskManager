@@ -27,31 +27,26 @@
 
 <main class="profile-container">
   <section class="user-info">
-    <h1>[NUME]</h1>
+    <h1><span id="memberName"></span></h1>
     <p class="departament">(departamente)</p>
-    <p>tip membru: [vedem]</p>
-    <p>drept de vot: [da/nu]</p>
-    <p>ore de activitate: [nr ore]</p>
+    <p>Email: <span id="email"></span></p>
+    <p>tip membru: <span id="status"></span></p>
+    <p>drept de vot: <span id="votingRight"></span></p>
+    <p>ore de activitate: <span id="totalHours"></span></p>
 
-    <form class="profile-form">
+
+    <form class="profile-form" id="profileForm">
       <div class="form-group">
         <div>
-          <label>First name</label>
-          <input type="text" placeholder="Jane" />
-        </div>
-        <div>
-          <label>Last name</label>
-          <input type="text" placeholder="Smitherton" />
+          <label for="phone">Telefon</label>
+          <input type="text" id="phone" placeholder="+40[000][000][000]" />
         </div>
       </div>
-      <label>Email address</label>
-      <input type="email" placeholder="email@domain.com" />
-      <label>Adresa</label>
-      <input type="text" placeholder="Enter your address" />
+      <label for="address">Adresa</label>
+      <input type="text" id="address" placeholder="Enter your address" />
       <button type="submit" class="btn">salveaza</button>
     </form>
   </section>
-
 </main>
 <script src="/js/profile.js"></script>
 </body>
