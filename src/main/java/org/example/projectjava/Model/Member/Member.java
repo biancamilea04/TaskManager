@@ -3,12 +3,19 @@ package org.example.projectjava.Model.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.projectjava.Model.MemberDetails.MemberDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "MEMBERS")
-public class Member {
+public class Member implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "membri_seq_gen")
@@ -19,4 +26,39 @@ public class Member {
     private String surname;
     private String email;
     private String password;
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private MemberDetails memberDetails;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        String status = memberDetails != null ? memberDetails.getStatus() : "MEMBER";
+        System.out.println("status: " + status);
+        return List.of(new SimpleGrantedAuthority(status));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 }

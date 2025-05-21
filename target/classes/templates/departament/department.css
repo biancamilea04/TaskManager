@@ -193,13 +193,13 @@ h2 {
 
 @media (max-width: 900px) {
     .products {
-        grid-template-columns: repeat(2, 1fr); /* 2 produse pe rând pentru tablete */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
     .products {
-        grid-template-columns: 1fr; /* 1 produs pe rând pe mobil */
+        grid-template-columns: 1fr;
     }
 }
 

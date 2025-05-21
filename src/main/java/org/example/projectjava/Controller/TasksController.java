@@ -2,11 +2,10 @@ package org.example.projectjava.Controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.projectjava.Com.TaskRequest;
+import org.example.projectjava.ControllerDTO.TaskDTO;
 import org.example.projectjava.Model.Member.Member;
 import org.example.projectjava.Model.Member.MemberRepository;
 import org.example.projectjava.Model.Task.Tasks;
-import org.example.projectjava.Model.Task.TasksRepository;
 import org.example.projectjava.Model.Task.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,7 +51,7 @@ public class TasksController {
     }
 
     @PostMapping("/api/tasks")
-    public ResponseEntity<Tasks> createTask(@RequestBody TaskRequest task, HttpServletRequest request) {
+    public ResponseEntity<Tasks> createTask(@RequestBody TaskDTO task, HttpServletRequest request) {
        System.out.println("[post]Task: " + task.title);
         String memberEmaill = null;
         if(request.getCookies()!=null) {
@@ -93,7 +92,7 @@ public class TasksController {
     }
 
     @PutMapping("/api/tasks/{memberTaskNumber}")
-    public ResponseEntity<Tasks> updateTask(@PathVariable int memberTaskNumber, @RequestBody TaskRequest task, HttpServletRequest request ){
+    public ResponseEntity<Tasks> updateTask(@PathVariable int memberTaskNumber, @RequestBody TaskDTO task, HttpServletRequest request ){
         System.out.println("[put]Task: " + task.title);
         String memberEmaill = null;
         if(request.getCookies()!=null) {

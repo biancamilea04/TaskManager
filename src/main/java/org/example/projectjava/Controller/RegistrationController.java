@@ -1,6 +1,6 @@
 package org.example.projectjava.Controller;
 
-import org.example.projectjava.Com.RegisterRequest;
+import org.example.projectjava.ControllerDTO.RegisterDTO;
 import org.example.projectjava.Model.Member.Member;
 import org.example.projectjava.Model.Member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> createUser(@RequestBody RegisterRequest Member) {
+    public ResponseEntity<String> createUser(@RequestBody RegisterDTO Member) {
 
         System.out.println("Member: " + Member.name);
 
@@ -45,7 +45,7 @@ public class RegistrationController {
             return ResponseEntity.ok("Inregistrare reusita");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // HTTP 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

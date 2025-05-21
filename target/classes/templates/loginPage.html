@@ -41,24 +41,29 @@
             </button>
         </form>
 
-        <form id="register" class="input-group" action="/register" onsubmit="submitRegister(event)" method="POST">
-            <input id="usernameRegister"
+        <form id="register" class="input-group">
+            <input id="NameRegister"
                    type="text"
                    class="input-field"
-                   name="username"
-                   placeholder="Username" required>
+                   name="Name"
+                   placeholder="Name" required>
+            <input id="SurnameRegister"
+                   type="text"
+                   class="input-field"
+                   name="Surname"
+                   placeholder="Surname" required>
             <input id="emailRegister"
                    type="text"
                    class="input-field"
                    name="email"
                    placeholder="Email" required>
             <input id="passwordRegister"
-                   type="text"
+                   type="password"
                    class="input-field"
                    name="password"
                    placeholder="Password" required>
             <input id="passwordconRegister"
-                   type="text"
+                   type="password"
                    class="input-field"
                    name="passwordcon"
                    placeholder="Confirm password" required>

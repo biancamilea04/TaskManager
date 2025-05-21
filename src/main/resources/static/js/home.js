@@ -321,3 +321,12 @@ window.addEventListener("click", (e) => {
 document.getElementById("goToProfile").addEventListener("click", () => {
     window.location.href = "/profile";
 });
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+    try {
+        await fetch("/logout", { method: "POST" });
+        window.location.href = "/login";
+    } catch (error) {
+        console.error("Logout failed", error);
+    }
+});

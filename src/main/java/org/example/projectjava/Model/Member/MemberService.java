@@ -25,11 +25,7 @@ public class MemberService implements UserDetailsService {
         Optional<Member> member = memberRepository.findByEmail(email);
 
         if (member.isPresent()) {
-            var myMember = member.get();
-            return User.builder()
-                    .username(myMember.getEmail())
-                    .password(myMember.getPassword())
-                    .build();
+            return member.get();
         }
         throw new UsernameNotFoundException("User not found");
     }
@@ -77,5 +73,9 @@ public class MemberService implements UserDetailsService {
 
     public Optional<Member> findByEmail(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    public void deleteMember(Member member) {
+        memberRepository.delete(member);
     }
 }

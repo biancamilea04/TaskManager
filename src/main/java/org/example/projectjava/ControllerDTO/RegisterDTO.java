@@ -1,6 +1,6 @@
-package org.example.projectjava.Com;
+package org.example.projectjava.ControllerDTO;
 
-public class RegisterRequest {
+public class RegisterDTO {
     public String name;
     public String surname;
     public String email;

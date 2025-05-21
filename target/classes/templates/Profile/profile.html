@@ -1,58 +1,97 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profil utilizator</title>
-  <link rel="stylesheet" href="/css/profile.css" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Profil utilizator</title>
+    <link rel="stylesheet" href="/css/profile.css"/>
 </head>
 <body>
 <div class="navbar">
-  <div class="navbar-left">
-    <button id="goToHome">ASII</button>
-  </div>
-  <div class="navbar-right">
-    <a href="#">Departamente</a>
-    <a href="#">Resurse</a>
-    <a href="#">AG-uri</a>
-    <div class="user-menu-wrapper">
-      <button class="btn" id="profileBtn">Profil</button>
-      <div class="user-dropdown" id="profileDropdown">
-        <button id="goToProfile">Profil</button>
-        <a href="/loginPage">Logout</a>
-      </div>
+    <div class="navbar-left">
+        <button id="goToHome">ASII</button>
     </div>
-  </div>
+    <div class="navbar-right">
+        <a href="#">Departamente</a>
+        <a href="#">Resurse</a>
+        <a href="#">AG-uri</a>
+        <div class="user-menu-wrapper">
+            <button class="btn" id="profileBtn">Profil</button>
+            <div class="user-dropdown" id="profileDropdown">
+                <button id="goToProfile">Profil</button>
+                <a href="/loginPage">Logout</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <main class="profile-container">
-  <section class="user-info">
-    <h1>[NUME]</h1>
-    <p class="departament">(departamente)</p>
-    <p>tip membru: [vedem]</p>
-    <p>drept de vot: [da/nu]</p>
-    <p>ore de activitate: [nr ore]</p>
+    <section class="user-info">
+        <h1><span id="memberName"></span></h1>
+        <p class="departament">(departamente)</p>
+        <p>Email: <span id="email"></span></p>
+        <p>tip membru: <span id="status"></span></p>
+        <p>drept de vot: <span id="votingRight"></span></p>
+        <p>ore de activitate: <span id="totalHours"></span></p>
 
-    <form class="profile-form">
-      <div class="form-group">
-        <div>
-          <label>First name</label>
-          <input type="text" placeholder="Jane" />
+
+        <form class="profile-form" id="profileForm">
+            <div class="form-group">
+
+                <label for="phone">Telefon</label>
+                <input type="text" id="phone" placeholder="+40"/>
+
+                <label for="address">Adresa</label>
+                <input type="text" id="address" placeholder="Enter your address"/>
+
+                <label for="cnp">CNP</label>
+                <input type="text" id="cnp" placeholder="CNP"/>
+
+                <label for="numar">Numar</label>
+                <input type="text" id="numar" placeholder="Numar"/>
+
+                <label for="serie">Serie</label>
+                <input type="text" id="serie" placeholder="Serie"/>
+            </div>
+
+            <button id="save" type="submit" class="btn">salveaza</button>
+        </form>
+    </section>
+
+    <button type="button" id="changePasswordBtn" class="btn">Schimbă parola</button>
+
+    <div id="passwordModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" id="closeModalBtnX">&times;</span>
+            <h3>Schimba parola</h3>
+            <label for="currentPassword">Parola curenta</label>
+            <input type="password" id="currentPassword" />
+
+            <label for="newPassword">Parola nouă</label>
+            <input type="password" id="newPassword" />
+
+            <label for="confirmPassword">Confirma parola noua</label>
+            <input type="password" id="confirmPassword" />
+
+            <button id="savePasswordBtn" class="btn">Salveaza</button>
+            <button id="closeModalBtn" class="btn cancel">Anuleaza</button>
         </div>
-        <div>
-          <label>Last name</label>
-          <input type="text" placeholder="Smitherton" />
+    </div>
+
+   <button id="deleteAccount" class="delete-account">Sterge contul</button>
+    <div id="deleteAccountModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" id="closeDeleteModalBtn">&times;</span>
+            <h3>Sterge contul</h3>
+            <p>Sigur vrei să stergi contul?</p>
+            <button id="confirmDeleteBtn" class="btn">Confirma</button>
+            <button id="cancelDeleteBtn" class="btn cancel">Anuleaza</button>
         </div>
-      </div>
-      <label>Email address</label>
-      <input type="email" placeholder="email@domain.com" />
-      <label>Adresa</label>
-      <input type="text" placeholder="Enter your address" />
-      <button type="submit" class="btn">salveaza</button>
-    </form>
-  </section>
+    </div>
 
 </main>
 <script src="/js/profile.js"></script>
 </body>
 </html>
+
+<!-- to do: the layout, change password --->

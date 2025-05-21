@@ -1,8 +1,8 @@
-package org.example.projectjava.Com;
+package org.example.projectjava.ControllerDTO;
 
 import java.time.LocalDate;
 
-public class TaskRequest {
+public class TaskDTO {
     public String title;
     public String description;
     public LocalDate dateTask;
