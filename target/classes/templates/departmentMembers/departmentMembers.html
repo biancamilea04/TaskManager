@@ -4,32 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Departamente</title>
-    <link rel="stylesheet" href="departmentMembers.css">
+    <link rel="stylesheet" href="/css/departmentMembers.css">
 </head>
 <body>
 <header class="navbar">
-    <div class="logo">ASII</div>
+    <a href="/home" class="logo">ASII</a>
     <nav class="nav-links">
-        <a href="#">Departamente</a>
-        <a href="#">Resurse</a>
+        <a href="/departments">Departamente</a>
+        <a href="/all-members">Members</a>
+        <a href="/resources">Resurse</a>
         <a href="#">Profil</a>
     </nav>
 </header>
 
 <main class="container">
     <div class="card">
-        <p class="department-name"><strong>[department name]</strong></p>
-        <div class="table-header">
-            <span>Name</span>
-            <span>Surname</span>
-            <span>status</span>
+        <h2 id="department"></h2>
+        <div class="sort-select">
+            <label for="sort">Sorteaza dupa:</label>
+            <select id="sort" onchange="handleSortChange()">
+                <option value="name">Prenume</option>
+                <option value="surname">Nume</option>
+                <option value="status">Statut</option>
+            </select>
         </div>
-        <div class="table-row">
-            <span><strong>[name]</strong></span>
-            <span><strong>surname</strong></span>
-            <span><strong>status</strong></span>
-        </div>
+        <table id="members-table">
+            <thead>
+            <tr>
+                <th>Prenume</th>
+                <th>Nume</th>
+                <th>Statut</th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+        <p id="no-members-message" class="hidden">Nu exista membri în acest departament</p>
     </div>
 </main>
+  <script src="/js/departmentMembers.js"></script>
 </body>
 </html>

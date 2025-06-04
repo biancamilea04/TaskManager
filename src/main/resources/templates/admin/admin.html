@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<div class="admin-upload-container">
+  <h2>Încarcă Membri din JSON</h2>
+  <form id="uploadForm">
+    <label for="fileInput">Alege fișierul JSON:</label>
+    <input type="file" id="fileInput" accept=".json" required>
+    <button type="submit">Incarca</button>
+  </form>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="status-admin-container">
+  <h2>Schimbă Statutul Membrilor</h2>
+  <form id="statusForm">
+    <label>Alege membrul:</label>
+    <div id="memberList" class="scrollable-list"></div>
+    <label for="statusSelect">Alege noul statut:</label>
+    <select id="statusSelect" required>
+      <option value="">-- Selectează statut --</option>
+      <option>PRESEDINTE</option>
+      <option>VICEPRESEDINTE</option>
+      <option>SECRETAR GENERAL</option>
+      <option>COORDONATOR DEPARTAMENT</option>
+      <option>COORDONATOR PROIECT</option>
+      <option>MEMBRU ASPIRANT</option>
+      <option>MEMBRU ACTIV</option>
+      <option>ALUMNI</option>
+    </select>
+    <button type="submit">Actualizează statutul</button>
+  </form>
+  <div class="feedback" id="statusFeedback"></div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

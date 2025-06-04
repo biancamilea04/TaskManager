@@ -26,11 +26,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = null;
-
-        System.out.println("JwtAuthenticationFilter se execută pentru: " + request.getRequestURI());
-
+        System.out.println("[path] " + request.getRequestURI());
         String path = request.getRequestURI();
-        System.out.println("path: " + path);
         if (path.startsWith("/login") ||
                 path.startsWith("/register") ||
                 path.startsWith("/logout") ||
@@ -57,27 +54,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (token != null) {
             String email = jwtService.extractUsername(token);
 
-            if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-               Optional<Member> memberOptional = memberService.findByEmail(email);
-
-               if(memberOptional.isPresent()) {
-                   Member member = memberOptional.get();
-                   if (jwtService.isTokenValid(token, member.getEmail())) {
-                       JwtAuthenticationToken authentication = new JwtAuthenticationToken(member, null, member.getAuthorities());
-                       System.out.println("[AUTHORITIES]" + member.getAuthorities());
-                       SecurityContextHolder.getContext().setAuthentication(authentication);
-                   }
-               } else {
-                     System.out.println("Member not found for email: " + email);
-               }
-
+            if (email != null) {
+                if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                    Optional<Member> memberOptional = memberService.findByEmail(email);
+                    System.out.println("Member found for email: " + email);
+                    if (memberOptional.isPresent()) {
+                        Member member = memberOptional.get();
+                        if (jwtService.isTokenValid(token, member.getEmail())) {
+                            System.out.println("JWT Token is valid for email: " + email);
+                            JwtAuthenticationToken authentication = new JwtAuthenticationToken(member, null, member.getAuthorities());
+                            SecurityContextHolder.getContext().setAuthentication(authentication);
+                        }
+                    } else {
+                        System.out.println("Member not found for email: " + email);
+                    }
+                }
             } else {
+                System.out.println("Member not found for email: " + email);
                 System.out.println("JWT Token is invalid or expired");
             }
         } else {
             System.out.println("No JWT Token found in cookies");
         }
-
         filterChain.doFilter(request, response);
     }
 }

@@ -46,12 +46,24 @@ public class TasksController {
         }
 
         List<Tasks> tasks = tasksService.getAllTasksMember(member.get());
+        List<TaskDTO> taskDTOs = tasks.stream()
+                .map(task -> {
+                    TaskDTO taskDTO = new TaskDTO();
+                    taskDTO.title = task.getTitle();
+                    taskDTO.description = task.getDescription();
+                    taskDTO.dateTask = task.getDateTask();
+                    taskDTO.numberActivityHours = task.getNumberActivityHours();
+                    taskDTO.status = task.getStatus();
+                    taskDTO.memberTaskNumber = task.getMemberTaskNumber();
+                    return taskDTO;
+                })
+                .toList();
         tasks.forEach(task -> System.out.println(task.getNumberActivityHours()));
-        return ResponseEntity.ok(tasks);
+        return ResponseEntity.ok(taskDTOs);
     }
 
     @PostMapping("/api/tasks")
-    public ResponseEntity<Tasks> createTask(@RequestBody TaskDTO task, HttpServletRequest request) {
+    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO task, HttpServletRequest request) {
        System.out.println("[post]Task: " + task.title);
         String memberEmaill = null;
         if(request.getCookies()!=null) {
@@ -88,7 +100,7 @@ public class TasksController {
 
         System.out.println(myTask.getMemberTaskNumber());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(myTask);
+        return ResponseEntity.status(HttpStatus.CREATED).body(task);
     }
 
     @PutMapping("/api/tasks/{memberTaskNumber}")

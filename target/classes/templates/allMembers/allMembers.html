@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membri Clasă</title>
+    <link rel="stylesheet" href="/css/allMembers.css">
+</head>
+<body>
+<header class="navbar">
+    <a href="/home" class="logo">ASII</a>
+    <nav class="nav-links">
+        <a href="/departments">Departamente</a>
+        <a href="/all-members">Members</a>
+        <a href="/resources">Resurse</a>
+        <a href="#">Profil</a>
+    </nav>
+</header>
+
+<main class="container">
+    <div class="card">
+        <h2>Lista Membri</h2>
+        <div class="sort-select">
+            <label for="sort">Sorteaza după:</label>
+            <select id="sort" onchange="handleSortChange()">
+                <option value="name">Nume</option>
+                <option value="surname">Prenume</option>
+                <option value="status">Statut</option>
+                <option value="departments">Departament</option>
+            </select>
+        </div>
+        <table id="members-table">
+            <thead>
+            <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Statut</th>
+                <th>Departamente</th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script src="/js/allMembers.js"></script>
+</body>
+</html>

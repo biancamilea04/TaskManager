@@ -1,7 +1,7 @@
 package org.example.projectjava.Controller;
 
 import org.example.projectjava.ControllerDTO.ChangePasswordDTO;
-import org.example.projectjava.ControllerDTO.MemberDetailsDTO;
+import org.example.projectjava.ControllerDTO.MembersDTO.MemberDetailsDTO;
 import org.example.projectjava.Model.Member.Member;
 import org.example.projectjava.Model.Member.MemberService;
 import org.example.projectjava.Model.MemberDetails.MemberDetails;

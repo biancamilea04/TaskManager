@@ -15,15 +15,15 @@ import javax.persistence.JoinColumn;
 public class DepartmentMembers {
 
     @EmbeddedId
-    private DepartmentMemberId id;
-
-    @ManyToOne
-    @MapsId("memberId")
-    @JoinColumn(name = "ID_MEMBER")
-    private Member member;
+    private DepartmentMembersEmbeddedId id;
 
     @ManyToOne
     @MapsId("departmentId")
-    @JoinColumn(name = "ID_DEPARTMENT")
+    @JoinColumn(name = "ID_DEPARTMENT", referencedColumnName = "ID_DEPARTMENT")
     private Department department;
+
+    @ManyToOne
+    @MapsId("memberId")
+    @JoinColumn(name = "ID_MEMBER", referencedColumnName = "ID_MEMBER")
+    private Member member;
 }

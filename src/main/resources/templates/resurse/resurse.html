@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resurse ASII</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/resurse.css">
+</head>
+<body>
+<div class="navbar">
+    <div class="navbar-left">
+        <button id="goToHome">ASII</button>
+    </div>
+    <div class="navbar-right">
+        <a href="#">Departamente</a>
+        <a href="/all-members">Members</a>
+        <a href="#">Resurse</a>
+        <a href="#">AG-uri</a>
+        <div class="user-menu-wrapper">
+            <button class="btn" id="profileBtn">Profil</button>
+            <div class="user-dropdown" id="profileDropdown">
+                <button id="goToProfile">Profil</button>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>Resurse</h1>
+<h2>General</h2>
+
+<div class="resource-list">
+    <div class="resource-card" onclick="window.location.href='https://drive.google.com/file/d/1bZQ-TVdZeyHvWY0KqGGc2BAUmh6C8ZG6/view'">
+        <div class="resource-title">Regulamentul ASII</div>
+        <div class="resource-description">Regulamentul de organizare și funcționare al ASII valabil începând de la 6 noiembrie 2024</div>
+    </div>
+    <div class="resource-card" onclick="window.location.href='https://drive.google.com/file/d/1Tb8v5geFzkwc4AsgLmDa1B62YHpSSThl/view'">
+        <div class="resource-title" >Statutul ASII</div>
+        <div class="resource-description">Statutul de organizare și funcționare al ASII valabil începând de la 21 octombrie 2024</div>
+    </div>
+    <div class="resource-card" onclick="window.location.href='https://drive.google.com/drive/u/0/folders/0AIoXrL0YtBulUk9PVA'">
+        <div class="resource-title">Poze ASII</div>
+        <div class="resource-description">Drive poze ASII începând cu anul 2018</div>
+    </div>
+    <div class="resource-card" onclick="window.location.href='https://drive.google.com/drive/u/0/folders/0AAmXDAqCLe0PUk9PVA'">
+        <div class="resource-title">Candidaturi ASII</div>
+        <div class="resource-description">Drive candidaturi ASII</div>
+    </div>
+</div>
+
+<script>
+    const profileBtn = document.getElementById("profileBtn");
+    const profileDropdown = document.getElementById("profileDropdown");
+
+    profileBtn.addEventListener("click", () => {
+        profileDropdown.style.display = profileDropdown.style.display === "flex" ? "none" : "flex";
+    });
+
+    window.addEventListener("click", (e) => {
+        if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+            profileDropdown.style.display = "none";
+        }
+    });
+
+    document.getElementById("goToProfile").addEventListener("click", () => {
+        window.location.href = "/profile";
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+        try {
+            await fetch("/logout", { method: "POST" });
+            window.location.href = "/login";
+        } catch (error) {
+            console.error("Logout failed", error);
+        }
+    });
+</script>
+</body>
+</html>

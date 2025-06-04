@@ -11,7 +11,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background: #170024;
-    background: linear-gradient(332deg, rgba(23, 0, 36, 1) 0%, rgba(76, 9, 121, 1) 35%, rgb(205, 0, 87) 100%);
+    background: linear-gradient(332deg, rgba(23, 0, 36, 1) 0%, rgb(9, 18, 121) 35%, rgb(0, 126, 205) 100%);
 }
 
 .wrapper {
@@ -25,9 +25,9 @@ body {
     height: 440px;
     position: relative;
     margin: 6% auto;
-    background: rgb(90, 4, 108);
-    border: 1px solid rgba(255, 255, 255, .2);
-    box-shadow: 0 0 15px 2px rgb(79, 8, 94);
+    background: rgb(4, 21, 108);
+    border: 1px solid rgb(112, 0, 23);
+    box-shadow: 0 0 15px 2px rgb(67, 0, 15);
     backdrop-filter: blur(20px);
     padding: 10px;
     border-radius: 2em;
@@ -40,7 +40,7 @@ body {
     border-radius: 2em;
     position: relative;
     background-color: rgba(255, 255, 255, 0.21);
-    box-shadow: 0 0 25px 2px rgb(90, 4, 108);
+    box-shadow: 0 0 25px 2px rgb(9, 18, 120);
 }
 
 .toggle-btn {

@@ -1,16 +1,18 @@
 package org.example.projectjava.Model.Member;
 
 import lombok.AllArgsConstructor;
+import org.example.projectjava.ControllerDTO.DepartmentDTO.AddMemberToDepartmentDTO;
+import org.example.projectjava.ControllerDTO.MembersDTO.MemberDepartmentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -77,5 +79,44 @@ public class MemberService implements UserDetailsService {
 
     public void deleteMember(Member member) {
         memberRepository.delete(member);
+    }
+
+    public List<Member> findAll() {
+        return memberRepository.findAll();
+    }
+
+    public List<MemberDepartmentDTO> getMembersByDepartment(String departmentName) {
+        return memberRepository.findAll().stream()
+                .filter(member -> member.getDepartmentMembers().stream().anyMatch(dm -> dm.getDepartment().getName().equals(departmentName)))
+                .map(member -> {
+                    MemberDepartmentDTO dto = new MemberDepartmentDTO();
+                    dto.setId(member.getId());
+                    dto.setName(member.getName());
+                    dto.setSurname(member.getSurname());
+                    dto.setStatus(member.getMemberDetails().getStatus() != null ? member.getMemberDetails().getStatus() : "MEMBER");
+                    dto.setActivityHours(member.getMemberDetails().getTotalActivityHours());
+                    return dto;
+                })
+                .toList();
+    }
+
+    public List<AddMemberToDepartmentDTO> getAllMembersToAddDepartment() {
+        return memberRepository.findAll().stream()
+                .map(member -> {
+                    AddMemberToDepartmentDTO dto = new AddMemberToDepartmentDTO();
+                    dto.setId(member.getId());
+                    dto.setName(member.getName());
+                    dto.setSurname(member.getSurname());
+                    return dto;
+                })
+                .toList();
+    }
+
+    public boolean isCoordinator(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent()) {
+            return member.get().getCoordinatingDepartment()!=null;
+        }
+        return false;
     }
 }

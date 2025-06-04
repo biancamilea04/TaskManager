@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Adina-Andreea",
+    "surname": "Nedelcu",
+    "email": "nedelcu.adina.andreea@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Alexandru",
+    "surname": "Arama",
+    "email": "arama.alexandru@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Ana-Maria",
+    "surname": "Constantin",
+    "email": "constantin.ana.maria@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Ana-Maria",
+    "surname": "Ursache",
+    "email": "ursache.ana.maria@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Anca",
+    "surname": "Iacob",
+    "email": "iacob.anca@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Andra-Maria",
+    "surname": "Coteanu",
+    "email": "coteanu.andra.maria@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Andreea-Elena",
+    "surname": "Munteanu",
+    "email": "munteanu.andreea.elena@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Alexandra-Mihaela",
+    "surname": "Panaite",
+    "email": "panaite.alexandra.mihaela@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Daniel Dumitru",
+    "surname": "Cristea",
+    "email": "cristea.daniel.dumitru@asii.ro",
+    "password": "D"
+  },
+  {
+    "name": "Denisa-Ioana",
+    "surname": "Golache",
+    "email": "golache.denisa.ioana@asii.ro",
+    "password": "D"
+  },
+  {
+    "name": "Dragos",
+    "surname": "Bejan",
+    "email": "bejan.dragos@asii.ro",
+    "password": "D"
+  },
+  {
+    "name": "Eden",
+    "surname": "Petrescu",
+    "email": "petrescu.eden@asii.ro",
+    "password": "E"
+  },
+  {
+    "name": "Georgiana",
+    "surname": "Boghiu",
+    "email": "boghiu.georgiana@asii.ro",
+    "password": "G"
+  },
+  {
+    "name": "Ioana-Alexia",
+    "surname": "Popa",
+    "email": "popa.ioana.alexia@asii.ro",
+    "password": "I"
+  },
+  {
+    "name": "Ana-Maria",
+    "surname": "Ghiorghiu",
+    "email": "ghiorghiu.ana.maria@asii.ro",
+    "password": "A"
+  },
+  {
+    "name": "Miruna-Diana",
+    "surname": "Curduman",
+    "email": "curduman.miruna.diana@asii.ro",
+    "password": "M"
+  },
+  {
+    "name": "Robert",
+    "surname": "Codreanu",
+    "email": "codreanu.robert@asii.ro",
+    "password": "R"
+  },
+  {
+    "name": "Monica-Roxana",
+    "surname": "Cernat",
+    "email": "cernat.monica.roxana@asii.ro",
+    "password": "M"
+  },
+  {
+    "name": "Stefan-Rares",
+    "surname": "Bodescu",
+    "email": "bodescu.stefan.rares@asii.ro",
+    "password": "S"
+  },
+  {
+    "name": "Maria",
+    "surname": "Brînzilă",
+    "email": "brinzila.maria@asii.ro",
+    "password": "M"
+  },
+  {
+    "name": "Victoria",
+    "surname": "Godovaniuc",
+    "email": "godovaniuc.victoria@asii.ro",
+    "password": "V"
+  },
+  {
+    "name": "Robert",
+    "surname": "Bucur",
+    "email": "bucur.robert@asii.ro",
+    "password": "R"
+  }
+]

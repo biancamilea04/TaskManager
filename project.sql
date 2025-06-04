@@ -36,6 +36,7 @@ CREATE TABLE DEPARTMENTS
     id_coordinator INT,
     FOREIGN KEY (id_coordinator) REFERENCES MEMBERS (id_member) ON DELETE CASCADE
 );
+ALTER TABLE DEPARTMENTS ADD (url VARCHAR2(255));
 
 CREATE TABLE DEPARTMENT_MEMBERS
 (
@@ -316,7 +317,7 @@ ALTER TABLE member_details
         );
 
 update MEMBER_DETAILS
-set status='member'
+set status='MEMBER'
 where status is null;
 commit;
 
@@ -339,7 +340,7 @@ begin
     values (departments_seq.nextval, p_name_department, v_id_member);
 
     update MEMBER_DETAILS
-        set status= 'coordonator'
+        set status= 'COORDONATOR'
     where member_id = v_id_member;
 
     commit;
@@ -362,10 +363,24 @@ begin
     add_departments('Evaluari','Diana','Benchea');
 end;
 
+alter table DEPARTMENT_MEMBERS drop column DEPARTMENT_ID_DEPARTMENT;
+alter table DEPARTMENT_MEMBERS drop column MEMBER_ID_MEMBER;
+
+UPDATE MEMBER_DETAILS
+SET STATUS = UPPER(STATUS) where status is not null;
+commit;
 
 
+CREATE OR REPLACE FUNCTION generate_department_url(p_name IN VARCHAR2)
+    RETURN VARCHAR2 IS
+    v_clean_name VARCHAR2(100);
+BEGIN
+    v_clean_name := LOWER(REPLACE(TRIM(p_name), ' ', '_'));
+    RETURN '/photos/' || v_clean_name || '.png';
+END;
 
+UPDATE DEPARTMENTS
+SET url = generate_department_url('re')
+WHERE id_department=3;
 
-
-
-
+commit;

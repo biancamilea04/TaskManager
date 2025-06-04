@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamente</title>
+    <link rel="stylesheet" href="/css/departmentMembersCoordinator.css">
+</head>
+<body>
+<header class="navbar">
+    <a href="/home" class="logo">ASII</a>/.
+    <nav class="nav-links">
+        <a href="/departments">Departamente</a>
+        <a href="/all-members">Members</a>
+        <a href="/resources">Resurse</a>
+        <a href="#">Profil</a>
+    </nav>
+</header>
+
+<main class="container">
+    <div class="card">
+        <h2 id="department"></h2>
+        <div class="sort-select">
+            <label for="sort">Sorteaza dupa:</label>
+            <select id="sort" onchange="handleSortChange()">
+                <option value="name">Nume</option>
+                <option value="surname">Prenume</option>
+                <option value="status">Statut</option>
+            </select>
+        </div>
+        <table id="members-table">
+            <thead>
+            <tr>
+                <th>Prenume</th>
+                <th>Nume</th>
+                <th>Statut</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+        <button id="add-members-btn" class="add-button">Add</button>
+        <p id="no-members-message" class="hidden">Nu exista membri în acest departament</p>
+    </div>
+
+    <div id="add-members-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Selectează Membrii</h3>
+            <div class="members-list" id="all-members-list">
+            </div>
+            <div class="modal-actions">
+                <button id="confirm-add-btn">Adauga</button>
+                <button id="cancel-add-btn">Anuleaza</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteConfirmModal" class="modal hidden">
+        <div class="modal-content">
+            <p>Sigur doriți să eliminați acest membru?</p>
+            <button id="confirmDeleteBtn" class="btn confirm">Da</button>
+            <button id="cancelDeleteBtn" class="btn cancel">Nu</button>
+        </div>
+    </div>
+</main>
+<script src="/js/departmentMembersCoordinator.js"></script>
+</body>
+</html>
