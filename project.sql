@@ -40,10 +40,10 @@ ALTER TABLE DEPARTMENTS ADD (url VARCHAR2(255));
 
 CREATE TABLE DEPARTMENT_MEMBERS
 (
-    id_member     NUMBER,
-    id_department NUMBER,
-    FOREIGN KEY (id_member) REFERENCES MEMBERS (id_member) ON DELETE CASCADE,
-    FOREIGN KEY (id_department) REFERENCES DEPARTMENTS (id_department) ON DELETE CASCADE
+    member_id_member     NUMBER,
+    department_id_department NUMBER,
+    FOREIGN KEY (member_id_member) REFERENCES MEMBERS (id_member) ON DELETE CASCADE,
+    FOREIGN KEY (department_id_department) REFERENCES DEPARTMENTS (id_department) ON DELETE CASCADE
 );
 
 
@@ -384,3 +384,134 @@ SET url = generate_department_url('re')
 WHERE id_department=3;
 
 commit;
+
+--C:\Users\Bianca Milea\Desktop\uni\II\sem2\JavaProjectTaskManager\projectJava2.0\ProjectJava\json\membersToExport.json
+
+CREATE OR REPLACE DIRECTORY EXPORT_DIR AS 'C:\Users\Bianca Milea\Desktop\uni\II\sem2\JavaProjectTaskManager\projectJava2.0\ProjectJava\json';
+GRANT READ, WRITE ON DIRECTORY EXPORT_DIR TO TASKMANAGER;
+GRANT CREATE ANY DIRECTORY TO TASKMANAGER;
+
+--script pentru a exporta datele din tabela MEMBERS in fisierul export.sql
+DECLARE
+    v_sql VARCHAR2(4000);
+    f  utl_file.file_type;
+BEGIN
+    f := UTL_FILE.FOPEN('EXPORT_DIR', 'export.sql', 'W');
+    FOR rec IN (
+        SELECT id_member, name, surname, email, password
+        FROM MEMBERS
+        ) LOOP
+            v_sql := 'INSERT INTO MEMBERS (id_member, name, surname, email, password, phone, status) VALUES ('
+                || rec.id_member || ', '
+                || '''' || REPLACE(rec.name, '''', '''''') || ''', '
+                || '''' || REPLACE(rec.surname, '''', '''''') || ''', '
+                || '''' || REPLACE(rec.email, '''', '''''') || ''', '
+                || CASE WHEN rec.password IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.password, '''', '''''') || '''' END
+                || ');';
+            UTL_FILE.PUT_LINE(f, v_sql);
+        END LOOP;
+    UTL_FILE.PUT_LINE(f, chr(10));
+
+--script pentru a exporta datele din tabela MEMBER_DETAILS in fisierul export.sql
+
+    FOR rec IN (
+        SELECT member_id, phone, address, status, voting_right, cnp, numar, serie, total_activity_hours
+        FROM MEMBER_DETAILS
+        ) LOOP
+            v_sql := 'INSERT INTO MEMBER_DETAILS (member_id, phone, address, status, voting_right, cnp, numar, serie, total_activity_hours) VALUES ('
+                || rec.member_id || ', '
+                || CASE WHEN rec.phone IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.phone, '''', '''''') || '''' END || ', '
+                || CASE WHEN rec.address IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.address, '''', '''''') || '''' END || ', '
+                || CASE WHEN rec.status IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.status, '''', '''''') || '''' END || ', '
+                || CASE WHEN rec.voting_right IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.voting_right, '''', '''''') || '''' END || ', '
+                || CASE WHEN rec.cnp IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.cnp, '''', '''''') || '''' END || ', '
+                || CASE WHEN rec.numar IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.numar, '''', '''''') || '''' END || ', '
+                || CASE WHEN rec.serie IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.serie, '''', '''''') || '''' END || ', '
+                || NVL(TO_CHAR(rec.total_activity_hours), '0')
+                || ');';
+            UTL_FILE.PUT_LINE(f, v_sql);
+        END LOOP;
+    UTL_FILE.PUT_LINE(f, chr(10));
+
+--script pentru a exporta datele din tabela DEPARTMENTS in fisierul export.sql
+
+    FOR rec IN (
+        SELECT id_department, name, id_coordinator, url
+        FROM DEPARTMENTS
+        ) LOOP
+            v_sql := 'INSERT INTO DEPARTMENTS (id_department, name, id_coordinator, url) VALUES ('
+                || rec.id_department || ', '
+                || '''' || REPLACE(rec.name, '''', '''''') || ''', '
+                || CASE WHEN rec.id_coordinator IS NULL THEN 'NULL' ELSE rec.id_coordinator END || ', '
+                || CASE WHEN rec.url IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.url, '''', '''''') || '''' END
+                || ');';
+            UTL_FILE.PUT_LINE(f, v_sql);
+        END LOOP;
+    UTL_FILE.PUT_LINE(f, chr(10));
+
+--script pentru a exporta datele din tabela DEPARTMENT_MEMBERS in fisierul export.sql
+
+    FOR rec IN (
+        SELECT member_id_member, department_id_department
+        FROM DEPARTMENT_MEMBERS
+        ) LOOP
+            v_sql := 'INSERT INTO DEPARTMENT_MEMBERS (member_id_member, department_id_department) VALUES ('
+                || rec.member_id_member || ', '
+                || rec.department_id_department
+                || ');';
+            UTL_FILE.PUT_LINE(f, v_sql);
+        END LOOP;
+    UTL_FILE.PUT_LINE(f, chr(10));
+
+
+--script pentru a exporta datele din tabela PROJECTS in fisierul export.sql
+
+    FOR rec IN (
+        SELECT id_project, name_project, id_coordinator
+        FROM PROJECTS
+        ) LOOP
+            v_sql := 'INSERT INTO PROJECTS (id_project, name_project, id_coordinator) VALUES ('
+                || rec.id_project || ', '
+                || '''' || REPLACE(rec.name_project, '''', '''''') || ''', '
+                || rec.id_coordinator
+                || ');';
+            UTL_FILE.PUT_LINE(f, v_sql);
+        END LOOP;
+    UTL_FILE.PUT_LINE(f, chr(10));
+
+--script pentru a exporta datele din tabela PROJECT_MEMBERS in fisierul export.sql
+
+    FOR rec IN (
+        SELECT id_member, id_project
+        FROM PROJECT_MEMBERS
+        ) LOOP
+            v_sql := 'INSERT INTO PROJECT_MEMBERS (id_member, id_project) VALUES ('
+                || rec.id_member || ', '
+                || rec.id_project
+                || ');';
+            UTL_FILE.PUT_LINE(f, v_sql);
+        END LOOP;
+    UTL_FILE.PUT_LINE(f, chr(10));
+
+--script pentru a exporta datele din tabela TASKS in fisierul export.sql
+
+    FOR rec IN (
+        SELECT id_task, title, description, date_task, number_activity_hours, status, id_member, id_project, id_department
+        FROM TASKS
+        ) LOOP
+            v_sql := 'INSERT INTO TASKS (id_task, title, description, date_task, number_activity_hours, status, id_member, id_project, id_department) VALUES ('
+                || rec.id_task || ', '
+                || '''' || REPLACE(rec.title, '''', '''''') || ''', '
+                || CASE WHEN rec.description IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.description, '''', '''''') || '''' END || ', '
+                || CASE WHEN rec.date_task IS NULL THEN 'NULL' ELSE 'TO_DATE(''' || TO_CHAR(rec.date_task, 'YYYY-MM-DD') || ''', ''YYYY-MM-DD'')' END || ', '
+                || NVL(TO_CHAR(rec.number_activity_hours), 'NULL') || ', '
+                || CASE WHEN rec.status IS NULL THEN 'NULL' ELSE '''' || REPLACE(rec.status, '''', '''''') || '''' END || ', '
+                || NVL(TO_CHAR(rec.id_member), 'NULL') || ', '
+                || NVL(TO_CHAR(rec.id_project), 'NULL') || ', '
+                || NVL(TO_CHAR(rec.id_department), 'NULL')
+                || ');';
+            UTL_FILE.PUT_LINE(f, v_sql);
+        END LOOP;
+    UTL_FILE.PUT_LINE(f, chr(10));
+    UTL_FILE.FCLOSE(f);
+END;
