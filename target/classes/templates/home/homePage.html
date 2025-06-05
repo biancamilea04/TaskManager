@@ -27,39 +27,12 @@
 </div>
 
 <div class="main">
-    <aside class="sidebar">
-        <h3>[nume departament]</h3>
-        <p><strong>[coord departament]</strong></p>
-        <ul>
-            <li>
-                <a href="project.html?name=Proiect1&coord=Ana%20Popescu">
-                    <div class="project-item">
-                        <span class="icon">📁</span> Proiect1<br><small>Ana Popescu</small>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="project.html?name=Proiect1&coord=Ana%20Popescu">
-                    <div class="project-item">
-                        <span class="icon">📁</span> Proiect1<br><small>Ana Popescu</small>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="project.html?name=Proiect1&coord=Ana%20Popescu">
-                    <div class="project-item">
-                        <span class="icon">📁</span> Proiect1<br><small>Ana Popescu</small>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </aside>
 
     <main class="content">
         <h1 id="welcomeMessage">Hello!</h1>
         <div class="info">
             <p>Informațiile tale</p>
-            <p>drept de vot:</p>
+            <p id="dreptDeVot"></p>
         </div>
 
         <div class="task-section">
@@ -97,7 +70,7 @@
                 <option>Refuzat</option>
             </select>
 
-            <label for="taskPeriod">Perioada:</label>
+            <label for="taskPeriod">Perioada Finalizare:</label>
             <input type="date" id="taskPeriod" name="taskPeriod" required>
 
             <label for="taskHours">Ore de activitate:</label>

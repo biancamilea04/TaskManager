@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.projectjava.Model.Member.Member;
 import org.example.projectjava.Model.Member.MemberRepository;
+import org.example.projectjava.Model.Member.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +20,11 @@ import java.util.List;
 
 @Controller
 public class AdminController {
-    private final MemberRepository memberRepository;
 
-    public AdminController(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
+    @Autowired
+    MemberService memberService;
 
+    @PreAuthorize("hasAuthority('COORDONATOR')")
     @GetMapping("/adminASII")
     public String getAdmin() {
         return "admin/admin";
@@ -37,7 +39,7 @@ public class AdminController {
         for(Member member : members) {
             member.setPassword(new BCryptPasswordEncoder().encode(member.getPassword()));
         }
-        memberRepository.saveAll(members);
+        memberService.saveAll(members);
         return "OK";
     }
 }

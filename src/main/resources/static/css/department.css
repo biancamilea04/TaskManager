@@ -1,110 +1,183 @@
+:root {
+    --navy: #1a2238;
+    --red: #ff1e56;
+    --white: #f8f9fa;
+    --light-navy: #283049;
+    --navy-accent: #304075;
+    --gray: #e5e8ee;
+    --mid-gray: #c7cdda;
+    --shadow: rgba(26,34,56,0.10);
+    --transition: 0.18s cubic-bezier(.4,0,.2,1);
+}
+
+/* Reset & base */
 * {
     box-sizing: border-box;
-}
-
-body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #fdfdfd;
-    color: #222;
+    padding: 0;
+}
+html, body {
+    background: linear-gradient(122deg, var(--navy) 75%, var(--red) 200%);
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    color: var(--navy);
+    min-height: 100vh;
 }
 
+/* Header (Navbar style) */
 header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background-color: white;
-    border-bottom: 1px solid #eee;
+    background: var(--navy);
+    padding: 1.1rem 3vw;
+    box-shadow: 0 3px 15px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
-
-header nav a {
-    margin: 0 10px;
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--red);
+    letter-spacing: 2.5px;
     text-decoration: none;
-    color: #000;
+    transition: color var(--transition);
 }
-
+.logo:hover {
+    color: #ff5d8f;
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.1rem;
+}
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.07rem;
+    padding: 0.38rem 0.8rem;
+    border-radius: 6px;
+    transition: background var(--transition), color var(--transition);
+}
+.nav-links a:hover {
+    background: var(--red);
+    color: var(--white);
+}
 .btn {
-    padding: 8px 16px;
-    background: #000;
-    color: white;
+    background: var(--red);
+    color: var(--white);
     border: none;
+    border-radius: 24px;
+    padding: 0.5rem 1.35rem;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(255,30,86,0.1);
+    transition: background var(--transition), color var(--transition);
+    margin-left: 0.6rem;
+}
+.btn:hover {
+    background: #d6133b;
+    color: #fff;
 }
 
+/* Container & content */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3vw 0 0 0;
+    min-height: 90vh;
+}
 .container {
+    background: var(--white);
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 32px var(--shadow);
+    max-width: 1100px;
+    width: 98vw;
+    padding: 2.5rem 2.2rem 2rem 2.2rem;
+    margin: 2vw;
     display: flex;
     flex-wrap: wrap;
-    padding: 40px 20px;
     gap: 40px;
+    align-items: flex-start;
 }
 
 .image-section img {
-    max-width: 100%;
-    border-radius: 10px;
+    max-width: 200px;
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(255,30,86,0.10);
+    margin-bottom: 1.3rem;
+    background: var(--gray);
+    padding: 1rem;
 }
 
 .content-section {
     max-width: 600px;
+    flex: 1;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
 }
-
 .content-section h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 2.1rem;
+    color: var(--navy);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
 }
-
 .content-section p {
-    color: #777;
+    color: var(--navy-accent);
+    font-size: 1.1rem;
 }
-
 .content-section .info {
-    margin-top: 20px;
-    line-height: 1.6;
-}
-
-@media (max-width: 900px) {
-    .departments {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .departments {
-        grid-template-columns: 1fr;
-    }
+    background: var(--gray);
+    border-radius: 8px;
+    padding: 1.1rem 1.3rem;
+    color: var(--navy-accent);
+    font-size: 1.08rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 1px 6px rgba(26,34,56,0.07);
 }
 
 #departments-container.departments-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-auto-rows: 1fr;
     gap: 24px;
     max-width: 900px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .department {
-    background: #fff;
+    background: #fff7fa;
+    border: 2px solid var(--red);
     border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    padding: 80px;
+    box-shadow: 0 2px 12px rgba(255,30,86,0.06);
+    padding: 2.7rem 1.2rem 2rem 1.2rem;
     cursor: pointer;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.18s, border-color 0.18s, transform 0.18s;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: var(--navy);
 }
-
 .department:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 16px rgba(255,30,86,0.12);
+    border-color: #d6133b;
 }
 .department img {
-    width: 150px;
-    height: 120px;
+    width: 110px;
+    height: 90px;
     object-fit: cover;
     margin-bottom: 12px;
+    border-radius: 12px;
+    background: var(--gray);
+    box-shadow: 0 1px 6px var(--shadow);
 }
 
 .department-info {
@@ -115,12 +188,13 @@ header nav a {
 .department-info strong {
     white-space: nowrap;
     display: block;
-    font-size: 20px;
+    font-size: 1.28rem;
+    color: var(--red);
 }
 
 .department-info small {
     color: #555;
-    font-size: 15px;
+    font-size: 1rem;
 }
 
 .scrollable-list {
@@ -133,9 +207,51 @@ header nav a {
     padding: 8px 0 8px 6px;
 }
 
-@media (max-width: 768px) {
+/* Scrollbar styling for departments grid */
+#departments-container.departments-grid {
+    scrollbar-width: thin;
+    scrollbar-color: var(--mid-gray) #f3f3f8;
+}
+#departments-container.departments-grid::-webkit-scrollbar {
+    width: 8px;
+    background: #f3f3f8;
+    border-radius: 6px;
+}
+#departments-container.departments-grid::-webkit-scrollbar-thumb {
+    background: var(--mid-gray);
+    border-radius: 6px;
+}
+#departments-container.departments-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--red);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
     .container {
         flex-direction: column;
-        padding: 20px;
+        padding: 1.5rem 0.6rem 1.3rem 0.6rem;
+        margin: 1vw;
+        gap: 22px;
+    }
+    #departments-container.departments-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 700px) {
+    .container {
+        padding: 0.7rem 0.15rem;
+    }
+    .image-section img {
+        max-width: 140px;
+    }
+    #departments-container.departments-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    .department {
+        padding: 1.3rem 0.7rem 1rem 0.7rem;
+    }
+    .content-section h1 {
+        font-size: 1.35rem;
     }
 }

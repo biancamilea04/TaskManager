@@ -10,13 +10,12 @@
 <body>
 <div class="navbar">
     <div class="navbar-left">
-        <button id="goToHome">ASII</button>
+        <a href="/home" class="logo">ASII</a>
     </div>
     <div class="navbar-right">
-        <a href="#">Departamente</a>
+        <a href="/departments">Departamente</a>
         <a href="/all-members">Members</a>
-        <a href="#">Resurse</a>
-        <a href="#">AG-uri</a>
+        <a href="/resources" class="active">Resurse</a>
         <div class="user-menu-wrapper">
             <button class="btn" id="profileBtn">Profil</button>
             <div class="user-dropdown" id="profileDropdown">
@@ -27,33 +26,32 @@
     </div>
 </div>
 
-<h1>Resurse</h1>
-<h2>General</h2>
+<main class="main-content">
+    <h1>Resurse</h1>
+    <h2>General</h2>
 
-<div class="resource-list">
-    <div class="resource-card" onclick="window.location.href='https://drive.google.com/file/d/1bZQ-TVdZeyHvWY0KqGGc2BAUmh6C8ZG6/view'">
-        <div class="resource-title">Regulamentul ASII</div>
-        <div class="resource-description">Regulamentul de organizare și funcționare al ASII valabil începând de la 6 noiembrie 2024</div>
+    <div class="resource-list">
+        <div class="resource-card" onclick="window.open('https://drive.google.com/file/d/1bZQ-TVdZeyHvWY0KqGGc2BAUmh6C8ZG6/view', '_blank')">
+            <div class="resource-title">Regulamentul ASII</div>
+            <div class="resource-description">Regulamentul de organizare și funcționare al ASII valabil începând de la 6 noiembrie 2024</div>
+        </div>
+        <div class="resource-card" onclick="window.open('https://drive.google.com/file/d/1Tb8v5geFzkwc4AsgLmDa1B62YHpSSThl/view', '_blank')">
+            <div class="resource-title">Statutul ASII</div>
+            <div class="resource-description">Statutul de organizare și funcționare al ASII valabil începând de la 21 octombrie 2024</div>
+        </div>
+        <div class="resource-card" onclick="window.open('https://drive.google.com/drive/u/0/folders/0AIoXrL0YtBulUk9PVA', '_blank')">
+            <div class="resource-title">Poze ASII</div>
+            <div class="resource-description">Drive poze ASII începând cu anul 2018</div>
+        </div>
     </div>
-    <div class="resource-card" onclick="window.location.href='https://drive.google.com/file/d/1Tb8v5geFzkwc4AsgLmDa1B62YHpSSThl/view'">
-        <div class="resource-title" >Statutul ASII</div>
-        <div class="resource-description">Statutul de organizare și funcționare al ASII valabil începând de la 21 octombrie 2024</div>
-    </div>
-    <div class="resource-card" onclick="window.location.href='https://drive.google.com/drive/u/0/folders/0AIoXrL0YtBulUk9PVA'">
-        <div class="resource-title">Poze ASII</div>
-        <div class="resource-description">Drive poze ASII începând cu anul 2018</div>
-    </div>
-    <div class="resource-card" onclick="window.location.href='https://drive.google.com/drive/u/0/folders/0AAmXDAqCLe0PUk9PVA'">
-        <div class="resource-title">Candidaturi ASII</div>
-        <div class="resource-description">Drive candidaturi ASII</div>
-    </div>
-</div>
+</main>
 
 <script>
     const profileBtn = document.getElementById("profileBtn");
     const profileDropdown = document.getElementById("profileDropdown");
 
-    profileBtn.addEventListener("click", () => {
+    profileBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
         profileDropdown.style.display = profileDropdown.style.display === "flex" ? "none" : "flex";
     });
 

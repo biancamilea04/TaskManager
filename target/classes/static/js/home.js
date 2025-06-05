@@ -118,7 +118,7 @@ document.getElementById("taskForm").addEventListener("submit", async function (e
         taskList.insertBefore(newCard, openBtn);
 
         modal.style.display = "none";
-        this.reset();
+        window.location.reload();
     } catch (err) {
         alert(err.message);
         console.error(err);
@@ -330,3 +330,24 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
         console.error("Logout failed", error);
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const jwt = localStorage.getItem("jwt");
+
+    fetch('/api/member/voting-right', {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + jwt
+        }
+    })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('dreptDeVot').innerText = "Drept de vot: " + data;
+        })
+        .catch(error => {
+            document.getElementById('dreptDeVot').innerText = "Eroare la încărcare";
+            console.error('Eroare:', error);
+        });
+});
+

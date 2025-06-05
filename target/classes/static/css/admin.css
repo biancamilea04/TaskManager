@@ -1,98 +1,151 @@
+:root {
+    --navy: #1a2238;
+    --red: #ff1e56;
+    --white: #f8f9fa;
+    --gray: #e5e8ee;
+    --mid-gray: #c7cdda;
+    --navy-accent: #304075;
+    --shadow: rgba(26,34,56,0.10);
+    --transition: 0.18s cubic-bezier(.4,0,.2,1);
+}
+
 body {
-    background: #f6f7fb;
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(122deg, var(--navy) 75%, var(--red) 200%);
+    font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif;
+    color: var(--navy);
     margin: 0;
     padding: 0;
 }
-.admin-upload-container, .status-admin-container {
-    max-width: 400px;
-    margin: 50px auto;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
-    padding: 32px 24px 24px 24px;
+
+.admin-main-wrapper {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3vw 0;
 }
+
+.admin-panel-box {
+    background: var(--white);
+    border-radius: 1.35rem;
+    box-shadow: 0 6px 32px var(--shadow);
+    border: 2px solid var(--red);
+    max-width: 430px;
+    width: 100%;
+    padding: 2.6rem 2.2rem 2.2rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+    margin: 2.5rem 0;
+}
+
+.admin-upload-container,
 .status-admin-container {
-    margin-top: 25px;
+    width: 100%;
 }
+
 h2 {
+    color: var(--red);
+    font-size: 1.35rem;
+    margin-bottom: 1.3rem;
+    letter-spacing: 1.2px;
+    font-weight: 800;
     text-align: center;
-    margin-bottom: 32px;
-    color: #2c3e50;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
 label {
-    display: block;
-    margin-bottom: 10px;
-    color: #444;
-    font-weight: bold;
+    color: var(--navy-accent);
+    font-weight: 600;
+    margin-bottom: .3rem;
 }
-input[type="file"], select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 24px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    background: #f9fafb;
-    color: #333;
+
+input[type="file"],
+select {
+    background: var(--gray);
+    border: 1.5px solid var(--mid-gray);
+    border-radius: 7px;
+    padding: 0.55rem 0.85rem;
+    color: var(--navy);
+    font-size: 1.02rem;
+    transition: border-color var(--transition);
+    margin-bottom: .2rem;
+    outline: none;
 }
-button {
-    background: #1d72b8;
-    color: #fff;
+input[type="file"]:focus,
+select:focus {
+    border-color: var(--red);
+}
+
+button[type="submit"] {
+    background: var(--red);
+    color: var(--white);
+    font-size: 1.07rem;
+    font-weight: 700;
     border: none;
-    padding: 12px 0;
-    width: 100%;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 24px;
+    padding: 0.7rem 0;
+    margin-top: .7rem;
     cursor: pointer;
-    margin-bottom: 12px;
-    transition: background 0.2s;
+    box-shadow: 0 2px 10px rgba(255,30,86,0.09);
+    transition: background var(--transition), color var(--transition), border var(--transition);
+    width: 100%;
+}
+button[type="submit"]:hover {
+    background: var(--navy);
+    color: var(--red);
+    border: 2px solid var(--red);
 }
 
 .scrollable-list {
-    max-height: 300px;     
-    overflow-y: auto;
-    border: 1px solid #e4e8ee;
+    background: var(--gray);
     border-radius: 8px;
-    background: #f9fafb;
-    margin-bottom: 18px;
-    padding: 8px 0 8px 6px;
+    max-height: 160px;
+    overflow-y: auto;
+    border: 1.5px solid var(--mid-gray);
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: .2rem;
 }
 
-#memberList label {
-    padding: 6px 0;
-    display: block;
-    cursor: pointer;
+.scrollable-list > * {
+    margin-bottom: .4rem;
+    color: var(--navy-accent);
+    font-size: 1rem;
 }
 
-button:hover {
-    background: #145e96;
-}
-.feedback, .current-status {
+.feedback,
+#statusFeedback {
+    margin-top: 1rem;
+    min-height: 1.2rem;
+    font-size: 1.03rem;
+    color: var(--navy-accent);
     text-align: center;
-    color: #fff;
-    padding: 10px;
-    border-radius: 6px;
-    margin-top: 16px;
-    display: none;
+    word-break: break-word;
 }
-.feedback.success, #statusFeedback.success {
-    background: #27ae60;
-    display: block;
+.feedback.success,
+#statusFeedback.success {
+    color: #16a34a;
 }
-.feedback.error, #statusFeedback.error {
-    background: #e74c3c;
-    display: block;
+.feedback.error,
+#statusFeedback.error {
+    color: #dc2626;
 }
-.current-status {
-    color: #555;
-    background: #f2f7fa;
-    margin-bottom: 10px;
-    display: block;
-    padding: 8px 0;
-}
-@media (max-width:500px) {
-    .admin-upload-container, .status-admin-container {
-        margin: 10px;
-        padding: 20px 8px 16px 8px;
+
+@media (max-width: 600px) {
+    .admin-panel-box {
+        padding: 1.3rem 0.6rem 1.1rem 0.6rem;
+        max-width: 97vw;
+    }
+    h2 {
+        font-size: 1.1rem;
     }
 }

@@ -74,12 +74,15 @@ document.getElementById('statusForm').addEventListener('submit', async function(
     const statusFeedback = document.getElementById('statusFeedback');
     statusFeedback.style.display = "none";
     if (memberIds.length === 0 || !status) return;
-    const res = await fetch('/api/members/update-status', {
+
+    console.log(memberIds);
+    const res = await fetch('/api/member/update-status', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ memberIds: memberIds, status: status })
     });
     if (res.ok) {
+        console.log("DA");
         statusFeedback.textContent = "Status actualizat cu succes!";
         statusFeedback.className = "feedback success";
         statusFeedback.style.display = "block";
@@ -88,6 +91,7 @@ document.getElementById('statusForm').addEventListener('submit', async function(
         });
         loadMembers();
     } else {
+        console.log(memberIds);
         statusFeedback.textContent = "Eroare la actualizare!";
         statusFeedback.className = "feedback error";
         statusFeedback.style.display = "block";

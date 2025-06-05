@@ -119,4 +119,14 @@ public class MemberService implements UserDetailsService {
         }
         return false;
     }
+
+    public Optional<Member> findById(Integer memberId) {
+        return memberRepository.findById(memberId);
+    }
+
+    public void saveAll(List<Member> members) {
+        if (members != null && !members.isEmpty()) {
+            memberRepository.saveAll(members);
+        }
+    }
 }

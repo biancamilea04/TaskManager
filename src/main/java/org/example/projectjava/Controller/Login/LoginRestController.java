@@ -75,7 +75,7 @@ public class LoginRestController {
                 response.addCookie(roleCookie);
             }
 
-            return ResponseEntity.ok("Login successful");
+            return ResponseEntity.ok("{\"jwt\":\"" + jwt + "\"}");
 
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");

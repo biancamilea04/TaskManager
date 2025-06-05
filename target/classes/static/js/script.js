@@ -43,9 +43,7 @@ submitButton.addEventListener('click', () => {
             console.log("Status:", response.status);
 
             if (response.ok) {
-                console.log("Login reușit");
-                window.location.replace("/home");
-                return response.text();
+                return response.json();
             }
 
             return response.text().then(errorMessage => {
@@ -53,8 +51,9 @@ submitButton.addEventListener('click', () => {
             });
         })
         .then(data => {
-            console.log(data);
+            localStorage.setItem("jwt", data.jwt);
             alert("Login reușit!");
+            window.location.replace("/home");
         })
         .catch(error => {
             console.error("Error:", error);

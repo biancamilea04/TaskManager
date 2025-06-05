@@ -8,6 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 public class MemberDTO {
+    Integer id;
     String name;
     String surname;
     String status;
