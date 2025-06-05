@@ -150,4 +150,38 @@ public class ProfileController {
         return ResponseEntity.ok("Account deleted successfully");
     }
 
+    @PutMapping("/api/profile/updateDetails")
+    public ResponseEntity<?> updateUserDetails(
+            @CookieValue(value = "user", defaultValue = "") String email,
+            @RequestBody MemberDetailsDTO updateDetails
+    ) {
+        if (email.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Missing user session.");
+        }
+
+        Optional<Member> memberOptional = memberService.findByEmail(email);
+        if (memberOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found.");
+        }
+
+        Member member = memberOptional.get();
+
+        Optional<MemberDetails> detailsOptional = memberDetailsService.findByMemberId(member.getId());
+        if (detailsOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member details not found.");
+        }
+
+        MemberDetails memberDetails = detailsOptional.get();
+
+        memberDetails.setPhone(updateDetails.phone);
+        memberDetails.setAddress(updateDetails.address);
+        memberDetails.setCnp(updateDetails.cnp);
+        memberDetails.setNumar(updateDetails.numar);
+        memberDetails.setSerie(updateDetails.serie);
+
+        memberDetailsService.save(memberDetails);
+
+        return ResponseEntity.ok("User details updated successfully.");
+    }
+
 }

@@ -17,4 +17,11 @@ public class MemberDetailsService {
     public void saveMemberDetails(MemberDetails existingMemberDetails) {
         memberDetailsRepository.save(existingMemberDetails);
     }
+
+    public void save(MemberDetails memberDetails) {
+        if (memberDetails == null) {
+            throw new IllegalArgumentException("MemberDetails cannot be null");
+        }
+        memberDetailsRepository.save(memberDetails);
+    }
 }
