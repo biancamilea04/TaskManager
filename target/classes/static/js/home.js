@@ -257,8 +257,6 @@ document.getElementById("editTaskForm").addEventListener("submit", async functio
         this.reset();
         currentEditTaskNumber = null;
     } catch (err) {
-        alert(err.message);
-        console.error(err);
     }
 });
 
