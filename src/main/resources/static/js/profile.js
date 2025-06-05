@@ -21,8 +21,8 @@ document.getElementById("goToHome").addEventListener("click", () => {
 })
 
 window.addEventListener("DOMContentLoaded", async () => {
-    try{
-        const humanDetails = await fetch("/api/profile/humanDetails", {
+    try {
+        const response = await fetch("/api/profile/userData", {
             method: "GET",
             credentials: "include",
             headers: {
@@ -30,38 +30,27 @@ window.addEventListener("DOMContentLoaded", async () => {
             }
         });
 
-        const memberDetails = await fetch("/api/profile/memberDetails", {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if(!humanDetails.ok || !memberDetails.ok){
-            console.log(humanDetails, memberDetails);
+        if (!response.ok) {
             throw new Error("Failed to fetch user data");
         }
 
-        const humanData = await humanDetails.json();
-        const memberData = await memberDetails.json();
-        console.log("User data:", humanData, memberData);
+        const data = await response.json();
+        console.log("User data:", data);
 
-        document.getElementById("memberName").textContent = `${humanData.name} ${humanData.surname}`;
-        document.getElementById("status").textContent = memberData.status;
-        document.getElementById("votingRight").textContent = memberData.votingRight;
-        document.getElementById("totalHours").textContent = memberData.totalHours;
+        document.getElementById("memberName").textContent = `${data.name} ${data.surname}`;
+        document.getElementById("status").textContent = data.status;
+        document.getElementById("votingRight").textContent = data.votingRight;
+        document.getElementById("totalHours").textContent = data.totalHours;
 
+        document.getElementById("email").textContent = data.email;
+        document.getElementById("phone").value = data.phone;
+        document.getElementById("address").value = data.address;
 
-        document.getElementById("email").textContent = humanData.email;
-        document.getElementById("phone").value = memberData.phone;
-        document.getElementById("address").value = memberData.address;
+        document.getElementById("cnp").value = data.cnp;
+        document.getElementById("numar").value = data.numar;
+        document.getElementById("serie").value = data.serie;
 
-        document.getElementById("cnp").value = memberData.cnp;
-        document.getElementById("numar").value = memberData.numar;
-        document.getElementById("serie").value = memberData.serie;
-
-    }catch(err){
+    } catch (err) {
         console.error("Error fetching user data:", err);
     }
 });

@@ -1,6 +1,9 @@
 package org.example.projectjava.Controller;
 
 import org.example.projectjava.ControllerDTO.ChangePasswordDTO;
+import org.example.projectjava.ControllerDTO.DepartmentDTO.DepartmentDTO;
+import org.example.projectjava.ControllerDTO.MemberProfileDTO;
+import org.example.projectjava.ControllerDTO.MembersDTO.MemberDepartmentDTO;
 import org.example.projectjava.ControllerDTO.MembersDTO.MemberDetailsDTO;
 import org.example.projectjava.Model.Member.Member;
 import org.example.projectjava.Model.Member.MemberService;
@@ -29,7 +32,7 @@ public class ProfileController {
     }
 
     @GetMapping("/api/profile/humanDetails")
-    public ResponseEntity<Member> getProfileHumanDetails(
+    public ResponseEntity<MemberDetailsDTO> getProfileHumanDetails(
             @CookieValue(value = "user", defaultValue = "")
             String email
     ) {
@@ -39,70 +42,65 @@ public class ProfileController {
 
         Optional<Member> memberOptional = memberService.findByEmail(email);
         if (memberOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        Member member = memberOptional.get();
-        System.out.println("[get humanDetails] " + member.getName() + " " + member.getEmail());
-        return ResponseEntity.ok(member);
-    }
-
-    @GetMapping("/api/profile/memberDetails")
-    public ResponseEntity<MemberDetails> getProfileDetails(
-            @CookieValue(value = "user", defaultValue = "")
-            String email
-    ) {
-        if (email.isEmpty()) {
-            return ResponseEntity.status(401).body(null);
-        }
-
-        Optional<Member> memberOptional = memberService.findByEmail(email);
-        if (memberOptional.isEmpty()) {
-            System.out.println("[get memberDetails] Member not found for email: " + email);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         Member member = memberOptional.get();
         Optional<MemberDetails> memberDetailsOptional = memberDetailsService.findByMemberId(member.getId());
         if (memberDetailsOptional.isEmpty()) {
-            System.out.println("[get memberDetails] MemberDetails not found for memberId: " + member.getId());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         MemberDetails memberDetails = memberDetailsOptional.get();
-        System.out.println("[get memberDetails] " + memberDetails.getMemberId() + " " + memberDetails.getTotalActivityHours());
-        return ResponseEntity.ok(memberDetails);
+        MemberDetailsDTO  humanDTO = new MemberDetailsDTO ();
+        humanDTO.address = memberDetails.getAddress();
+        humanDTO.phone = memberDetails.getPhone();
+        humanDTO.cnp = memberDetails.getCnp();
+        humanDTO.numar = memberDetails.getNumar();
+        humanDTO.serie = memberDetails.getSerie();
+        System.out.println("[get humanDetails] " + member.getName() + " " + member.getEmail());
+
+        return ResponseEntity.ok(humanDTO);
     }
 
-    @PutMapping("/api/profile/updateDetails")
-    public ResponseEntity<MemberDetails> updateProfileDetails(
-            @CookieValue(value = "user", defaultValue = "")
-            String email,
-            @RequestBody MemberDetailsDTO memberDetails
+    @GetMapping("/api/profile/userData")
+    public ResponseEntity<MemberProfileDTO> getUserProfile(
+            @CookieValue(value = "user", defaultValue = "") String email
     ) {
         if (email.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return ResponseEntity.status(401).build();
         }
 
         Optional<Member> memberOptional = memberService.findByEmail(email);
         if (memberOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
         Member member = memberOptional.get();
-        Optional<MemberDetails> existingMemberDetailsOptional = memberDetailsService.findByMemberId(member.getId());
-        if (existingMemberDetailsOptional.isEmpty()) {
+        Optional<MemberDetails> memberDetailsOptional = memberDetailsService.findByMemberId(member.getId());
+        if (memberDetailsOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        MemberDetails existingMemberDetails = existingMemberDetailsOptional.get();
+        MemberDetails memberDetails = memberDetailsOptional.get();
 
-        existingMemberDetails.setPhone(memberDetails.phone);
-        existingMemberDetails.setAddress(memberDetails.address);
-        existingMemberDetails.setCnp(memberDetails.cnp);
-        existingMemberDetails.setNumar(memberDetails.numar);
-        existingMemberDetails.setSerie(memberDetails.serie);
+        MemberProfileDTO memberProfile = new MemberProfileDTO();
+        memberProfile.address = memberDetails.getAddress();
+        memberProfile.phone = memberDetails.getPhone();
+        memberProfile.cnp = memberDetails.getCnp();
+        memberProfile.numar = memberDetails.getNumar();
+        memberProfile.serie = memberDetails.getSerie();
+        memberProfile.name = member.getName();
+        memberProfile.surname = member.getSurname();
+        memberProfile.email = member.getEmail();
 
-        memberDetailsService.saveMemberDetails(existingMemberDetails);
+        memberProfile.status = member.getMemberDetails().getStatus() != null
+                ? member.getMemberDetails().getStatus().toString() : "Unknown";
 
-        return ResponseEntity.ok(existingMemberDetails);
+        memberProfile.votingRight = member.getMemberDetails().getVotingRight() != null
+                && member.getMemberDetails().getVotingRight().equals("DA");
+        memberProfile.totalHours = member.getMemberDetails().getTotalActivityHours();
+
+        return ResponseEntity.ok(memberProfile);
     }
 
     @PutMapping("/api/profile/changePassword")
