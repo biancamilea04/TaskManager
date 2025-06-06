@@ -511,7 +511,7 @@ BEGIN
 END;
 
 
-    ----statistici pentru departamente
+ ----statistici pentru departamente
 CREATE OR REPLACE FUNCTION get_task_count_by_department(p_department_id IN NUMBER)
     RETURN NUMBER IS
     v_count NUMBER := 0;
@@ -608,7 +608,18 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Performanță departament: ' || v_performance_score);
 END;
 
+CREATE OR REPLACE FUNCTION get_members_count
+    RETURN NUMBER
+    IS
+    cnt NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO cnt FROM MEMBERS;
+    RETURN cnt;
+END;
 
+begin
+    DBMS_OUTPUT.PUT_LINE('Număr total de membri: ' || get_members_count);
+end;
 
 
 

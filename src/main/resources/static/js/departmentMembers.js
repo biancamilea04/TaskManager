@@ -6,6 +6,7 @@ window.onload = async function () {
     fetchDepartmentMembers(department);
 
     const departmentTitle = document.getElementById("department");
+    updateDepartmentStats(department);
     const departmentName = await fetch(`/api/departments/name/${department}`).then(res => res.text());
     console.log(departmentName);
     departmentTitle.textContent = `Departament: ${departmentName}`;
@@ -69,4 +70,16 @@ function sortTable(field) {
         return (a[field] || "").localeCompare(b[field] || "");
     });
     displayMembers(sorted);
+}
+
+async function updateDepartmentStats(departmentName) {
+    const response = await fetch(`/api/departments/stats/${departmentName}`);
+    if (!response.ok) return;
+
+    console.log(response);
+    const data = await response.json();
+
+    document.getElementById('nr-taskuri').textContent = data.nrTaskuri ?? "-";
+    document.getElementById('nr-taskuri-finalizate').textContent = data.nrTaskuriFinalizate ?? "-";
+    document.getElementById('performanta').textContent = data.performanta ?? "-";
 }

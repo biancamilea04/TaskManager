@@ -6,4 +6,5 @@ public class DepartmentDTO {
     public String shortName;
     public String coordinatorName;
     public int memberCount;
+    public float percentTaskDone;
 }

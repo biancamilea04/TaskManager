@@ -9,12 +9,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     departments.forEach(dept => {
         const department = document.createElement("div");
         department.classList.add("department");
-
+        console.log(dept.percentTaskDone);
         department.innerHTML = `
             <img src=${dept.url} alt="">
             <div class="department-info">
                 <strong>${dept.name}</strong>
                 <small>${dept.coordinatorName}<br>${dept.memberCount} membri</small>
+                <br>
+                <small>Procent taskuri finalizate: ${dept.percentTaskDone}% </small>
             </div>
         `;
 
@@ -24,4 +26,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         container.appendChild(department);
     });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/member/count')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('nr-membri').textContent = data;
+        })
+        .catch(error => {
+            document.getElementById('nr-membri').textContent = 'eroare';
+            console.error('Eroare la preluarea numarului de membri:', error);
+        });
 });

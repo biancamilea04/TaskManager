@@ -92,4 +92,9 @@ public class MemberController {
         }
         return ResponseEntity.ok("Status actualizat cu succes pentru " + updatedCount + " membri.");
     }
+
+    @GetMapping("/count")
+    public int getMembersCount() {
+        return memberService.getMembersCount();
+    }
 }

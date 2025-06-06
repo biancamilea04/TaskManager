@@ -10,6 +10,10 @@
     --transition: 0.18s cubic-bezier(.4,0,.2,1);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     min-height: 100vh;
     margin: 0;
@@ -62,7 +66,7 @@ body {
 }
 
 .container {
-    max-width: 520px;
+    max-width: 600px;
     margin: 3.5rem auto 0 auto;
     padding: 0 1rem;
     display: flex;
@@ -97,7 +101,7 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .sort-select label {
@@ -118,6 +122,37 @@ body {
 }
 .sort-select select:focus {
     border-color: var(--red);
+}
+
+.department-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    background: var(--gray);
+    border-radius: 0.7rem;
+    padding: 0.7rem 0.4rem;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 2px 6px var(--shadow);
+    font-size: 1.03rem;
+    width: 100%;
+}
+
+.department-stats-row > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-label {
+    color: var(--navy-accent);
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+}
+
+.stat-value {
+    color: var(--red);
+    font-weight: 700;
+    font-size: 1.13em;
 }
 
 #members-table {
@@ -181,6 +216,17 @@ body {
         margin: 2rem 0 0 0;
     }
     .logo { font-size: 1.35rem; }
+}
+
+@media (max-width: 700px) {
+    .department-stats-row {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+        padding: 0.4rem 0.1rem;
+    }
+    .department-stats-row > div {
+        align-items: flex-start;
+    }
 }
 
 @media (max-width: 600px) {
