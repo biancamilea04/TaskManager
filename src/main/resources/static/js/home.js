@@ -235,28 +235,11 @@ document.getElementById("editTaskForm").addEventListener("submit", async functio
     console.log(taskPayload);
 
     try {
-        const updatedTask = await updateTask(taskPayload, currentEditTaskNumber);
-        console.log("updated: " + updatedTask.numberActivityHours);
-        console.log(updatedTask);
-
-        const oldCard = [...taskList.querySelectorAll(".task-card")]
-            .find(c => c.querySelector("h4").textContent.startsWith(`#${currentEditTaskNumber}:`));
-        if (oldCard) taskList.removeChild(oldCard);
-
-        const newCard = createTaskCard({
-            name: updatedTask.title,
-            desc: updatedTask.description,
-            status: updatedTask.status,
-            period: updatedTask.dateTask,
-            hours: updatedTask.numberActivityHours,
-            memberTaskNumber: updatedTask.memberTaskNumber
-        });
-        taskList.insertBefore(newCard, openBtn);
-
-        editModal.style.display = "none";
-        this.reset();
-        currentEditTaskNumber = null;
+        await updateTask(taskPayload, currentEditTaskNumber);
+        window.location.reload();
     } catch (err) {
+        alert(err.message);
+        console.error(err);
     }
 });
 
