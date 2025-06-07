@@ -1,3 +1,4 @@
+// Modal logic for Add Task
 const modal = document.getElementById("taskModal");
 const openBtn = document.querySelector(".add-task-btn");
 const closeBtn = document.getElementById("closeModal");
@@ -63,8 +64,6 @@ async function saveTask(taskData) {
         numberActivityHours: parseFloat(taskData.hours)
     };
 
-    console.log(task.numberActivityHours);
-
     try {
         const response = await fetch("/api/tasks", {
             method: "POST",
@@ -74,17 +73,13 @@ async function saveTask(taskData) {
             body: JSON.stringify(task)
         });
 
-        console.log("Status:", response.status);
-
         const data = await response.json();
         if (response.ok) {
-            console.log("Task salvat");
             return data;
         } else {
             throw new Error("Eroare la salvare: " + (data.message || response.statusText));
         }
     } catch (error) {
-        console.error("Error:", error);
         alert("Eroare la salvare! " + error.message);
         throw error;
     }
@@ -100,12 +95,9 @@ document.getElementById("taskForm").addEventListener("submit", async function (e
     const hours = document.getElementById("taskHours").value;
 
     const taskPayload = {name, desc, status, period, hours};
-    console.log(taskPayload);
 
     try {
         let savedTask = await saveTask(taskPayload);
-
-        console.log(savedTask);
 
         const newCard = createTaskCard({
             name: savedTask.title,
@@ -115,16 +107,15 @@ document.getElementById("taskForm").addEventListener("submit", async function (e
             hours: savedTask.numberActivityHours,
             memberTaskNumber: savedTask.memberTaskNumber
         });
-        taskList.insertBefore(newCard, openBtn);
+        // Add new card at the top of the list
+        taskList.insertBefore(newCard, taskList.firstChild);
 
         modal.style.display = "none";
         window.location.reload();
     } catch (err) {
         alert(err.message);
-        console.error(err);
     }
 });
-
 
 window.addEventListener("DOMContentLoaded", () => {
     fetch("/api/current-username", {
@@ -137,7 +128,6 @@ window.addEventListener("DOMContentLoaded", () => {
             return response.text();
         })
         .then(name => {
-            console.log("Răspuns primit:", name);
             document.getElementById("welcomeMessage").textContent = `Hello ${name}!`;
         })
         .catch(error => {
@@ -157,7 +147,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 if (noTasks) noTasks.style.display = "none";
 
                 tasks.forEach(task => {
-                    console.log(task);
                     const card = createTaskCard({
                         name: task.title,
                         desc: task.description,
@@ -166,7 +155,7 @@ window.addEventListener("DOMContentLoaded", () => {
                         hours: task.numberActivityHours,
                         memberTaskNumber: task.memberTaskNumber
                     });
-                    taskList.insertBefore(card, openBtn);
+                    taskList.appendChild(card);
                 });
             }
         })
@@ -175,6 +164,7 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 });
 
+// Edit Task Modal
 const editModal = document.getElementById("editTaskModal");
 const closeEditBtn = document.getElementById("closeEditModal");
 
@@ -212,8 +202,6 @@ async function updateTask(taskData, memberTaskNumber) {
         })
     });
 
-    console.log("activity " + taskData.hours);
-
     if (!response.ok) {
         const msg = await response.text();
         throw new Error(msg || "Eroare la actualizare task");
@@ -232,16 +220,16 @@ document.getElementById("editTaskForm").addEventListener("submit", async functio
     const hours = document.getElementById("editTaskHours").value;
 
     const taskPayload = {name, desc, status, period, hours};
-    console.log(taskPayload);
 
     try {
         await updateTask(taskPayload, currentEditTaskNumber);
+        window.location.reload();
     } catch (err) {
         window.location.reload();
-        console.error(err);
     }
 });
 
+// Delete Task Modal
 const deleteModal = document.getElementById("deleteConfirmModal");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
@@ -268,7 +256,6 @@ confirmDeleteBtn.addEventListener("click", async () => {
         currentDeleteCard = null;
     } catch (error) {
         alert(error.message);
-        console.error(error);
     }
 });
 
@@ -284,11 +271,12 @@ window.addEventListener("click", (e) => {
     }
 });
 
-
+// Profile menu logic
 const profileBtn = document.getElementById("profileBtn");
 const profileDropdown = document.getElementById("profileDropdown");
 
-profileBtn.addEventListener("click", () => {
+profileBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     profileDropdown.style.display = profileDropdown.style.display === "flex" ? "none" : "flex";
 });
 
@@ -311,7 +299,7 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
     }
 });
 
-
+// Fetch voting right info
 document.addEventListener("DOMContentLoaded", function() {
     const jwt = localStorage.getItem("jwt");
 
@@ -327,7 +315,32 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => {
             document.getElementById('dreptDeVot').innerText = "Eroare la încărcare";
-            console.error('Eroare:', error);
         });
 });
 
+// Notifications via WebSocket
+document.addEventListener('DOMContentLoaded', function () {
+    const socket = new SockJS('/ws');
+    const stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+        stompClient.send("/app/requestNotification", {}, "");
+        stompClient.subscribe('/topic/special', function (message) {
+            showNotification(message.body);
+        });
+    });
+
+    function showNotification(text) {
+        const notification = document.getElementById('notification');
+        notification.textContent = text;
+        notification.style.display = 'block';
+        notification.style.opacity = '1';
+
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 500);
+        }, 5000);
+    }
+});
