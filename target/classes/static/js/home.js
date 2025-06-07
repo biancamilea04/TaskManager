@@ -305,6 +305,7 @@ document.getElementById("goToProfile").addEventListener("click", () => {
 document.getElementById("logoutBtn").addEventListener("click", async () => {
     try {
         await fetch("/logout", { method: "POST" });
+        localStorage.clear();
         window.location.href = "/login";
     } catch (error) {
         console.error("Logout failed", error);

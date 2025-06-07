@@ -98,4 +98,23 @@ document.getElementById('statusForm').addEventListener('submit', async function(
     }
 });
 
+document.getElementById('exportMembersBtn').addEventListener('click', function() {
+    fetch('/api/members/export')
+        .then(response => {
+            if (!response.ok) throw new Error('Network error');
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'members_export.json';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(err => alert('Export nereușit!'));
+});
+
 loadMembers();

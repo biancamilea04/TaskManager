@@ -6,6 +6,9 @@ import org.example.projectjava.Model.Member.Member;
 import org.example.projectjava.Model.Member.MemberRepository;
 import org.example.projectjava.Model.Member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -41,5 +44,25 @@ public class AdminController {
         }
         memberService.saveAll(members);
         return "OK";
+    }
+
+// /api/members/export
+
+    @GetMapping("/api/members/export")
+    @ResponseBody
+    public ResponseEntity<Resource> exportMembers() {
+        List<Member> members = memberService.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(members);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=\"members.json\"")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new org.springframework.core.io.ByteArrayResource(json.getBytes()));
     }
 }
