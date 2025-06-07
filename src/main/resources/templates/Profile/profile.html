@@ -19,7 +19,7 @@
             <button class="btn" id="profileBtn">Profil</button>
             <div class="user-dropdown" id="profileDropdown">
                 <button id="goToProfile">Profil</button>
-                <a href="/loginPage">Logout</a>
+                <button id="logoutBtn">Logout</button>
             </div>
         </div>
     </div>
@@ -34,10 +34,8 @@
         <p>drept de vot: <span id="votingRight"></span></p>
         <p>ore de activitate: <span id="totalHours"></span></p>
 
-
         <form class="profile-form" id="profileForm">
             <div class="form-group">
-
                 <label for="phone">Telefon</label>
                 <input type="text" id="phone" placeholder="+40"/>
 
@@ -78,7 +76,7 @@
         </div>
     </div>
 
-   <button id="deleteAccount" class="delete-account">Sterge contul</button>
+    <button id="deleteAccount" class="delete-account">Sterge contul</button>
     <div id="deleteAccountModal" class="modal hidden">
         <div class="modal-content">
             <span class="close-button" id="closeDeleteModalBtn">&times;</span>
@@ -88,10 +86,7 @@
             <button id="cancelDeleteBtn" class="btn cancel">Anuleaza</button>
         </div>
     </div>
-
 </main>
 <script src="/js/profile.js"></script>
 </body>
 </html>
-
-<!-- to do: the layout, change password --->
