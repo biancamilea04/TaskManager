@@ -21,12 +21,26 @@
     <div class="card">
         <h2 id="department"></h2>
         <div class="sort-select">
-            <label for="sort">Sorteaza dupa:</label>
+            <label for="sort">Sortează după:</label>
             <select id="sort" onchange="handleSortChange()">
                 <option value="name">Prenume</option>
                 <option value="surname">Nume</option>
                 <option value="status">Statut</option>
             </select>
+        </div>
+        <div class="department-stats-row">
+            <div>
+                <span class="stat-label">Taskuri:</span>
+                <span id="nr-taskuri" class="stat-value">-</span>
+            </div>
+            <div>
+                <span class="stat-label">Finalizate:</span>
+                <span id="nr-taskuri-finalizate" class="stat-value">-</span>
+            </div>
+            <div>
+                <span class="stat-label">Performanță:</span>
+                <span id="performanta" class="stat-value">-</span>
+            </div>
         </div>
         <table id="members-table">
             <thead>
@@ -42,6 +56,6 @@
         <p id="no-members-message" class="hidden">Nu exista membri în acest departament</p>
     </div>
 </main>
-  <script src="/js/departmentMembers.js"></script>
+<script src="/js/departmentMembers.js"></script>
 </body>
 </html>

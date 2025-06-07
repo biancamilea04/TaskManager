@@ -1,6 +1,7 @@
 package org.example.projectjava.Controller.DepartmentController;
 
 import org.example.projectjava.ControllerDTO.DepartmentDTO.DepartmentDTO;
+import org.example.projectjava.ControllerDTO.DepartmentDTO.DepartmentStatsDTO;
 import org.example.projectjava.Model.Department.Department;
 import org.example.projectjava.Model.Department.DepartmentService;
 import org.example.projectjava.Model.Member.MemberService;
@@ -39,13 +40,26 @@ public class DepartmentRestController {
 
         Department.departmentNames.forEach((departName, departmentName) -> {
             DepartmentDTO departmentDTO = new DepartmentDTO();
+            int id = departmentService.getDepartmentIdByName(departmentName);
             departmentDTO.name = departmentName;
             departmentDTO.shortName = departName;
             departmentDTO.url = departmentService.getUrlByDepartmentName(departmentName);
             departmentDTO.coordinatorName = departmentService.GetCoordinatorNameByDepartmentName(departmentName);
             departmentDTO.memberCount = memberService.getMembersByDepartment(departmentName).size();
+            departmentDTO.percentTaskDone= departmentService.getPercentTaskDoneByDepartmentId(id);
             departmentInfo.add(departmentDTO);
         });
         return ResponseEntity.ok(departmentInfo);
     }
+
+    @GetMapping("/api/departments/stats/{departmentName}")
+    public ResponseEntity<DepartmentStatsDTO>  getDepartmentStats(@PathVariable String departmentName){
+        DepartmentStatsDTO departmentStatsDTO = new DepartmentStatsDTO();
+        departmentStatsDTO= departmentService.getDepartmentStatsDTOByDepartmentId(departmentService.getDepartmentIdByName(Department.departmentNames.get(departmentName)));
+        if (departmentStatsDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(departmentStatsDTO);
+    }
+
 }

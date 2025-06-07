@@ -236,9 +236,8 @@ document.getElementById("editTaskForm").addEventListener("submit", async functio
 
     try {
         await updateTask(taskPayload, currentEditTaskNumber);
-        window.location.reload();
     } catch (err) {
-        alert(err.message);
+        window.location.reload();
         console.error(err);
     }
 });
