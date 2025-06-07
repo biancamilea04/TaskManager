@@ -17,10 +17,15 @@ public class HomeController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private NotificationController notificationController;
+
     @GetMapping("/home")
     public String homePage() {
+
         return "home/homePage";
     }
+
 
     @GetMapping("/api/current-username")
     @ResponseBody
