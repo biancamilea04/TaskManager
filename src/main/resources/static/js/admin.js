@@ -21,7 +21,7 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
         });
 
         if (response.ok) {
-            feedback.textContent = "Membrii au fost incarcati cu succes!";
+            feedback.textContent = await response.text();
             feedback.className = "feedback success";
             feedback.style.display = "block";
             fileInput.value = "";

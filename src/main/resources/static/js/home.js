@@ -137,16 +137,15 @@ window.addEventListener("DOMContentLoaded", () => {
             return response.text();
         })
         .then(name => {
-            console.log("Răspuns primit:", name);
             document.getElementById("welcomeMessage").textContent = `Hello ${name}!`;
         })
         .catch(error => {
-            console.error("Eroare la obținerea numelui:", error);
+            console.error("Eroare la obtinerea numelui:", error);
         });
 
     fetch("/api/tasks", {credentials: "include"})
         .then(response => {
-            if (!response.ok) throw new Error("Eroare la obținerea taskurilor.");
+            if (!response.ok) throw new Error("Eroare la obtinerea taskurilor.");
             return response.json();
         })
         .then(tasks => {

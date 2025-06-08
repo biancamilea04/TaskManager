@@ -43,11 +43,11 @@ public class CoordinatorDepartmentMembersController {
     ) {
         String departmentName = addedMembers.departmentName;
         List<Integer> memberIds = addedMembers.memberIds;
-        System.out.println("Member IDs: " + memberIds);
 
         if (departmentName.isEmpty() || memberIds.isEmpty()) {
             return ResponseEntity.badRequest().body("Invalid department ID or member IDs");
         }
+
         try {
             int departmentId = departmentService.getDepartmentIdByName(departmentName);
             departmentMembersService.addMembersToDepartment(departmentId, memberIds);

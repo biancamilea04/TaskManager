@@ -25,6 +25,7 @@ public class DepartmentMembersController {
     public ResponseEntity<?> getMembersByDepartment(@PathVariable String departmentNameParam) {
         String departmentName = Department.departmentNames.get(departmentNameParam);
         List<MemberDepartmentDTO> members = memberService.getMembersByDepartment(departmentName);
+
         return ResponseEntity.ok(members);
     }
 }

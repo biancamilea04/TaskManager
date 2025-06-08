@@ -48,4 +48,13 @@ public class DepartmentMembersService {
 
         departmentMembersRepository.delete(departmentMembers);
     }
+
+    public int getMembERsCountByDepartmentName(String departmentName) {
+        int departmentId = departmentService.getDepartmentIdByName(departmentName);
+        return departmentMembersRepository.countByDepartmentId(departmentId);
+    }
+
+    public int getTotalMembers() {
+        return (int) departmentMembersRepository.count();
+    }
 }

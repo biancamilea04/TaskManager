@@ -1,10 +1,8 @@
 package org.example.projectjava.Model.Department;
 
 import org.example.projectjava.ControllerDTO.DepartmentDTO.DepartmentStatsDTO;
-import org.example.projectjava.Model.DepartmentMembers.DepartmentMembers;
 import org.example.projectjava.Model.Member.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonWriter;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -55,7 +53,7 @@ public class DepartmentService {
         return jdbcTemplate.execute(
                 (ConnectionCallback<Float>) conn -> {
                     try (var cs = conn.prepareCall(sql)) {
-                        cs.registerOutParameter(1, Types.FLOAT); // or Types.NUMERIC
+                        cs.registerOutParameter(1, Types.FLOAT);
                         cs.setInt(2, departmentId);
                         cs.execute();
                         return cs.getFloat(1);
@@ -97,7 +95,7 @@ public class DepartmentService {
                 jdbcTemplate.execute(
                         (ConnectionCallback<Float>) conn -> {
                             try (var cs = conn.prepareCall(sql3)) {
-                                cs.registerOutParameter(1, Types.FLOAT); // or Types.NUMERIC
+                                cs.registerOutParameter(1, Types.FLOAT);
                                 cs.setInt(2, departmentId);
                                 cs.execute();
                                 return cs.getFloat(1);

@@ -79,13 +79,10 @@ public class TasksController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        System.out.println(memberEmaill);
         Member member = memberRepository.findByEmail(memberEmaill).orElse(null);
         if(member==null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
-        System.out.println("Id: "+member.getId());
 
         Tasks myTask = new Tasks();
         myTask.setTitle(task.title);
@@ -98,14 +95,11 @@ public class TasksController {
         tasksService.save(myTask);
         tasksService.refresh(myTask);
 
-        System.out.println(myTask.getMemberTaskNumber());
-
         return ResponseEntity.status(HttpStatus.CREATED).body(task);
     }
 
     @PutMapping("/api/tasks/{memberTaskNumber}")
     public ResponseEntity<Tasks> updateTask(@PathVariable int memberTaskNumber, @RequestBody TaskDTO task, HttpServletRequest request ){
-        System.out.println("[put]Task: " + task.title);
         String memberEmaill = null;
         if(request.getCookies()!=null) {
             for (Cookie cookie : request.getCookies()) {
@@ -137,8 +131,6 @@ public class TasksController {
         mytask.setNumberActivityHours(task.numberActivityHours);
         mytask.setStatus(task.status);
 
-        System.out.println(mytask.getId() + " " + mytask.getTitle() + " " + mytask.getDescription() + " " + mytask.getMemberTaskNumber() + " " + mytask.getNumberActivityHours());
-
         tasksService.save(mytask);
 
         return ResponseEntity.ok(mytask);
@@ -156,20 +148,15 @@ public class TasksController {
             }
         }
 
-        if(memberEmaill==null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        if(memberEmaill==null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
 
         Member member = memberRepository.findByEmail(memberEmaill).orElse(null);
-        if(member==null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        if(member==null)  return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         Tasks mytask = tasksService.findByMemberAndMemberTaskNumber(member,memberTaskNumber);
 
-        if(mytask==null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        if(mytask==null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         tasksService.delete(mytask);
 

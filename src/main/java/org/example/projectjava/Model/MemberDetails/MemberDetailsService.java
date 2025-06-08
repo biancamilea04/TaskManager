@@ -14,14 +14,18 @@ public class MemberDetailsService {
         return memberDetailsRepository.findByMemberId(memberId);
     }
 
-    public void saveMemberDetails(MemberDetails existingMemberDetails) {
-        memberDetailsRepository.save(existingMemberDetails);
-    }
-
     public void save(MemberDetails memberDetails) {
         if (memberDetails == null) {
             throw new IllegalArgumentException("MemberDetails cannot be null");
         }
         memberDetailsRepository.save(memberDetails);
+    }
+
+    public long countMembersVotingRight(String votingRight) {
+        return memberDetailsRepository.findAll().stream()
+                .filter(
+                        memberDetails
+                                -> votingRight.equals(memberDetails.getVotingRight()))
+                .count();
     }
 }

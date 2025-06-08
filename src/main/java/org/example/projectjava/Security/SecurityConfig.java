@@ -1,12 +1,6 @@
 package org.example.projectjava.Security;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.example.projectjava.Jwt.JwtAuthenticationFilter;
-import org.example.projectjava.Jwt.JwtService;
 import org.example.projectjava.Model.Member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -78,11 +72,11 @@ public class SecurityConfig {
                                         .loginProcessingUrl("/doLogin")
                 )
                 .authorizeHttpRequests(
-                        authorizeRequests -> {
+                        authorizeRequests ->
                             authorizeRequests
                                     .requestMatchers("/login", "/register","/not-authorized", "/css/**", "/js/**","/images/**", "/favicon.ico", "/.well-known/**").permitAll()
-                                    .anyRequest().authenticated();
-                        }
+                                    .anyRequest().authenticated()
+
                 )
                 .addFilterBefore(jwtTokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();

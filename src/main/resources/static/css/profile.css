@@ -180,7 +180,6 @@ body {
     font-weight: 600;
 }
 
-/* Change password and delete account buttons */
 #changePasswordBtn {
     margin: 1.5rem 0 0 0;
     width: 100%;
@@ -204,7 +203,6 @@ body {
     border: 2px solid #fff;
 }
 
-/* Modals */
 .modal {
     display: flex;
     position: fixed;
@@ -289,7 +287,6 @@ body {
     color: var(--red);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
     .profile-container {
         padding: 1.2rem 0.6rem;

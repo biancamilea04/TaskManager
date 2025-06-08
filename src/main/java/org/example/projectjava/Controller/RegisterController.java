@@ -25,9 +25,7 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<String> createUser(@RequestBody RegisterDTO Member) {
 
-        System.out.println("Member: " + Member.name);
-
-        ResponseEntity<String> isValidMember = myMemberService.memberAlreadyExist(Member.email);
+       ResponseEntity<String> isValidMember = myMemberService.memberAlreadyExist(Member.email);
         if(isValidMember.getStatusCode().equals(HttpStatus.CONFLICT)) {
             return isValidMember;
         }
@@ -37,8 +35,6 @@ public class RegisterController {
         myMember.setSurname(Member.surname);
         myMember.setEmail(Member.email);
         myMember.setPassword(new BCryptPasswordEncoder().encode(Member.password));
-
-        System.out.println(myMember.getEmail() + " " + myMember.getPassword() + " " + myMember.getEmail());
 
         try {
             myMemberService.saveMember(myMember);

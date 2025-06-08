@@ -209,7 +209,6 @@ body {
     display: none !important;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
     .container {
         padding: 0 0.5rem;

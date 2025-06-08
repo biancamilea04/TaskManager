@@ -3,6 +3,7 @@ package org.example.projectjava.Model.Task;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.projectjava.Model.Department.Department;
 import org.example.projectjava.Model.Member.Member;
 
 import java.time.LocalDate;
@@ -27,4 +28,8 @@ public class Tasks {
     @ManyToOne
     @JoinColumn(name = "ID_MEMBER", nullable = false)
     private Member member;
+    @ManyToOne
+    @JoinColumn(name = "ID_DEPARTMENT", nullable = false)
+    private Department department;
+
 }

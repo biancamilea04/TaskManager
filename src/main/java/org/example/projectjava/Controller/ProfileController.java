@@ -57,7 +57,6 @@ public class ProfileController {
         humanDTO.cnp = memberDetails.getCnp();
         humanDTO.numar = memberDetails.getNumar();
         humanDTO.serie = memberDetails.getSerie();
-        System.out.println("[get humanDetails] " + member.getName() + " " + member.getEmail());
 
         return ResponseEntity.ok(humanDTO);
     }
@@ -82,8 +81,8 @@ public class ProfileController {
         }
 
         MemberDetails memberDetails = memberDetailsOptional.get();
-
         MemberProfileDTO memberProfile = new MemberProfileDTO();
+
         memberProfile.address = memberDetails.getAddress();
         memberProfile.phone = memberDetails.getPhone();
         memberProfile.cnp = memberDetails.getCnp();

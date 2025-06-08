@@ -147,4 +147,9 @@ public class MemberService implements UserDetailsService {
                 }
         );
     }
+
+    public int getAllMembersCount() {
+        return (int) memberRepository.count();
+    }
+
 }

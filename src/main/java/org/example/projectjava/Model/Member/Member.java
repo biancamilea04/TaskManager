@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.example.projectjava.Model.Department.Department;
 import org.example.projectjava.Model.DepartmentMembers.DepartmentMembers;
 import org.example.projectjava.Model.MemberDetails.MemberDetails;
+import org.example.projectjava.Model.Task.Tasks;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +38,9 @@ public class Member implements UserDetails {
 
     @OneToOne(mappedBy="member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Department coordinatingDepartment;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Tasks> tasks;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

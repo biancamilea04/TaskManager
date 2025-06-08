@@ -10,7 +10,6 @@
     --transition: 0.18s cubic-bezier(.4,0,.2,1);
 }
 
-/* Reset and base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -23,7 +22,6 @@ html, body {
     color: var(--navy);
 }
 
-/* Navbar/Header */
 .navbar {
     width: 100%;
     display: flex;
@@ -64,9 +62,6 @@ html, body {
     color: var(--white);
 }
 
-
-
-/* Main container */
 .container {
     display: flex;
     justify-content: center;
@@ -75,7 +70,6 @@ html, body {
     padding: 3vw 1vw;
 }
 
-/* Card for members list */
 .card {
     background: var(--white);
     border-radius: 1.3rem;
@@ -89,12 +83,13 @@ html, body {
     gap: 1.7rem;
 }
 
-/* Sort select */
+
 .sort-select {
     display: flex;
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.2rem;
+    justify-content: space-between;
 }
 .sort-select label {
     font-weight: 600;
@@ -114,7 +109,12 @@ html, body {
     border-color: var(--red);
 }
 
-/* Table styles */
+.sort-select .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 table {
     width: 100%;
     border-collapse: separate;
@@ -155,7 +155,6 @@ tbody tr:last-child {
     border-bottom: none;
 }
 
-/* Responsive design */
 @media (max-width: 900px) {
     .container {
         padding: 2vw 0.2vw;
@@ -185,7 +184,6 @@ tbody tr:last-child {
     }
 }
 
-/* Custom scrollbar for table body if too many members */
 #members-table tbody {
     display: block;
     max-height: 350px;
@@ -267,4 +265,37 @@ tbody tr:last-child {
 .user-dropdown button:hover {
     background: var(--red, #ff1e56);
     color: #fff;
+}
+
+
+#exportStatistics {
+    background: var(--red, #ff1e56);
+    color: var(--white, #f8f9fa);
+    border: none;
+    border-radius: 24px;
+    padding: 0.5rem 1.35rem;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    margin-left: 1rem;
+    box-shadow: 0 2px 8px rgba(255,30,86,0.12);
+    transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+    outline: none;
+    display: inline-block;
+}
+
+#exportStatistics:hover,
+#exportStatistics:focus {
+    background: #d6133b;
+    color: #fff;
+    transform: translateY(-2px) scale(1.045);
+    box-shadow: 0 4px 18px rgba(255,30,86,0.19);
+}
+
+#exportStatistics:active {
+    background: #aa0c2c;
+    color: #fff;
+    transform: scale(0.98);
+    box-shadow: 0 1px 4px rgba(255,30,86,0.10);
 }

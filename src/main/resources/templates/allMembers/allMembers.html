@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membri Clasă</title>
+    <title>Membrii ASII</title>
     <link rel="stylesheet" href="/css/allMembers.css">
 </head>
 <body>
@@ -21,6 +21,7 @@
     <div class="card">
         <h2>Lista Membri</h2>
         <div class="sort-select">
+            <div class="sort-controls">
             <label for="sort">Sorteaza după:</label>
             <select id="sort" onchange="handleSortChange()">
                 <option value="name">Nume</option>
@@ -28,7 +29,10 @@
                 <option value="status">Statut</option>
                 <option value="departments">Departament</option>
             </select>
+            </div>
+            <button id="exportStatistics">Statistici</button>
         </div>
+
         <table id="members-table">
             <thead>
             <tr>

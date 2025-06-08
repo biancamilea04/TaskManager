@@ -28,7 +28,6 @@ public class HomeController {
             @CookieValue(value = "user", defaultValue = "")
             String email
     ) {
-        System.out.println("*"+email+"*");
         if (email.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Neautentificat");
         }

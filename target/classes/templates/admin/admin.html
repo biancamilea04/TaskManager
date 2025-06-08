@@ -11,29 +11,35 @@
 <div class="admin-main-wrapper">
   <div class="admin-panel-box">
     <div class="admin-upload-container">
-      <h2>Încarcă Membri din JSON</h2>
+      <h2>Incarca Membri din JSON</h2>
       <form id="uploadForm">
         <label for="fileInput">Alege fișierul JSON:</label>
         <input type="file" id="fileInput" accept=".json" required>
-        <button type="submit">Încarcă</button>
+        <button type="submit">Incarca</button>
       </form>
       <div class="feedback" id="feedback"></div>
     </div>
 
+    <div class="admin-export-container">
+      <h2>Exporta Membri in JSON</h2>
+      <button id="exportMembersBtn">Exporta membri</button>
+    </div>
+
     <div class="status-admin-container">
-      <h2>Schimbă Statutul Membrilor</h2>
+      <h2>Schimba Statutul Membrilor</h2>
       <form id="statusForm">
         <label>Alege membrul:</label>
         <div id="memberList" class="scrollable-list"></div>
         <label for="statusSelect">Alege noul statut:</label>
         <select id="statusSelect" required>
-          <option value="">-- Selectează statut --</option>
+          <option value="">-- Selecteaza statut --</option>
           <option>PRESEDINTE</option>
           <option>VICEPRESEDINTE</option>
           <option>SECRETAR GENERAL</option>
           <option>COORDONATOR</option>
           <option>MEMBRU</option>
           <option>ALUMNI</option>
+          <option>ADMIN</option>
         </select>
         <button type="submit">Actualizează statutul</button>
       </form>

@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityManager;
+
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TasksService {
@@ -38,5 +43,16 @@ public class TasksService {
 
     public Tasks findByMemberAndMemberTaskNumber(Member member, int memberTaskNumber) {
         return tasksRepository.findByMemberAndMemberTaskNumber(member, memberTaskNumber);
+    }
+
+    public Map<LocalDate,Long> tasksPerDay(){
+        List<Tasks> tasks = tasksRepository.findAll();
+        return tasks.stream()
+                .collect(
+                        Collectors.groupingBy(
+                                Tasks::getDateTask,
+                                Collectors.counting()
+                        )
+                );
     }
 }

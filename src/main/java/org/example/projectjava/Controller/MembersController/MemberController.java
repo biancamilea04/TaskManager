@@ -64,7 +64,6 @@ public class MemberController {
 
     @PostMapping("/update-status")
     public ResponseEntity<?> updateMemberStatus(@RequestBody UpdateStatusDTO updateStatusDTO) {
-        System.out.println("Update Status DTO: " + updateStatusDTO);
         List<Integer> memberIds = updateStatusDTO.memberIds;
         String status = updateStatusDTO.status;
 

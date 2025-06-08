@@ -49,16 +49,18 @@ public class DepartmentRestController {
             departmentDTO.percentTaskDone= departmentService.getPercentTaskDoneByDepartmentId(id);
             departmentInfo.add(departmentDTO);
         });
+
         return ResponseEntity.ok(departmentInfo);
     }
 
     @GetMapping("/api/departments/stats/{departmentName}")
     public ResponseEntity<DepartmentStatsDTO>  getDepartmentStats(@PathVariable String departmentName){
-        DepartmentStatsDTO departmentStatsDTO = new DepartmentStatsDTO();
+        DepartmentStatsDTO departmentStatsDTO;
         departmentStatsDTO= departmentService.getDepartmentStatsDTOByDepartmentId(departmentService.getDepartmentIdByName(Department.departmentNames.get(departmentName)));
         if (departmentStatsDTO == null) {
             return ResponseEntity.notFound().build();
         }
+
         return ResponseEntity.ok(departmentStatsDTO);
     }
 
