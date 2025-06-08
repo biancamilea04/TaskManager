@@ -365,3 +365,14 @@ html, body {
 .modal[style*="display:block"], .modal[style*="display: flex"] {
     display: flex !important;
 }
+
+.task-table-header--with-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.3rem;
+}
+.task-table-header--with-btn .add-task-btn {
+    margin-top: 0;
+    align-self: auto;
+}

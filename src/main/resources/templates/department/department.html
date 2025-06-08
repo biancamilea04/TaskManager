@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ASII MEMBERS</title>
     <link rel="stylesheet" href="/css/department.css" />
-
 </head>
 <body>
 
 <header>
     <a href="/home" class="logo">ASII</a>
     <nav class="nav-links">
-        <a href="/departments" >Departamente</a>
+        <a href="/departments">Departamente</a>
         <a href="/all-members">Members</a>
         <a href="/resources">Resurse</a>
-        <a href="/profile">Profil</a>
+        <div class="user-menu-wrapper">
+            <button class="btn" id="profileBtn">Profil</button>
+            <div class="user-dropdown" id="profileDropdown">
+                <button id="goToProfile">Profil</button>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
     </nav>
 </header>
 
@@ -40,4 +45,3 @@
 <script src="/js/department.js"></script>
 </body>
 </html>
-

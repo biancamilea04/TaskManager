@@ -57,3 +57,40 @@ document.getElementById("exportStatistics").addEventListener("click", function()
 });
 
 window.onload = fetchMembers();
+
+document.addEventListener('DOMContentLoaded', function() {
+    const profileBtn = document.getElementById("profileBtn");
+    const profileDropdown = document.getElementById("profileDropdown");
+
+    if (profileBtn && profileDropdown) {
+        profileBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            profileDropdown.style.display = profileDropdown.style.display === "flex" ? "none" : "flex";
+        });
+
+        window.addEventListener("click", function(e) {
+            if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.style.display = "none";
+            }
+        });
+
+        const goToProfile = document.getElementById("goToProfile");
+        if (goToProfile) {
+            goToProfile.addEventListener("click", function() {
+                window.location.href = "/profile";
+            });
+        }
+
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async function() {
+                try {
+                    await fetch("/logout", { method: "POST" });
+                    window.location.href = "/login";
+                } catch (error) {
+                    console.error("Logout failed", error);
+                }
+            });
+        }
+    }
+});

@@ -36,16 +36,14 @@
         </div>
 
         <div class="task-section">
-            <div class="task-table-header">
+            <div class="task-table-header task-table-header--with-btn">
                 <div>ACTIVITATE IN ASII</div>
+                <button class="add-task-btn">AddTask</button>
             </div>
-
             <div class="task-list" id="taskList">
                 <div class="task-card-no-tasks" id="noTasks">
                     <p id="noTasksMessage" class="no-tasks-msg">Nu ai taskuri</p>
                 </div>
-
-                <button class="add-task-btn">AddTask</button>
             </div>
         </div>
     </main>
@@ -119,7 +117,57 @@
     </div>
 </div>
 
-<script src="/js/home.js"></script>
 
+<div id="notification" style="
+    display: none;
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 25px 30px;
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    font-family: sans-serif;
+    z-index: 1000;
+    max-width: 400px;
+    transition: opacity 0.5s ease-in-out;
+"></div>
+
+
+<script src="/js/home.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const socket = new SockJS('/ws');
+        const stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.send("/app/requestNotification", {}, "");
+            stompClient.subscribe('/topic/special', function (message) {
+                showNotification(message.body);
+            });
+        });
+
+        function showNotification(text) {
+            const notification = document.getElementById('notification');
+            notification.textContent = text;
+            notification.style.display = 'block';
+            notification.style.opacity = '1';
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 500); // timpul necesar pentru fade-out
+            }, 5000); // 5 secunde
+        }
+    });
+
+</script>
 </body>
 </html>

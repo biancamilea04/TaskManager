@@ -1,8 +1,9 @@
+// Navbar profile dropdown logic
 const profileBtn = document.getElementById("profileBtn");
 const profileDropdown = document.getElementById("profileDropdown");
-const homeBtn = document.getElementById("homeBtn");
 
-profileBtn.addEventListener("click", () => {
+profileBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     profileDropdown.style.display = profileDropdown.style.display === "flex" ? "none" : "flex";
 });
 
@@ -16,10 +17,21 @@ document.getElementById("goToProfile").addEventListener("click", () => {
     window.location.href = "/profile";
 });
 
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+    try {
+        await fetch("/logout", { method: "POST" });
+        window.location.href = "/login";
+    } catch (error) {
+        console.error("Logout failed", error);
+    }
+});
+
+// Home navigation
 document.getElementById("goToHome").addEventListener("click", () => {
     window.location.href = "/home";
-})
+});
 
+// Fetch and display user data
 window.addEventListener("DOMContentLoaded", async () => {
     try {
         const response = await fetch("/api/profile/userData", {
@@ -35,26 +47,25 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
 
         const data = await response.json();
-        console.log("User data:", data);
-
         document.getElementById("memberName").textContent = `${data.name} ${data.surname}`;
         document.getElementById("status").textContent = data.status;
         document.getElementById("votingRight").textContent = data.votingRight;
         document.getElementById("totalHours").textContent = data.totalHours;
 
         document.getElementById("email").textContent = data.email;
-        document.getElementById("phone").value = data.phone;
-        document.getElementById("address").value = data.address;
+        document.getElementById("phone").value = data.phone || "";
+        document.getElementById("address").value = data.address || "";
 
-        document.getElementById("cnp").value = data.cnp;
-        document.getElementById("numar").value = data.numar;
-        document.getElementById("serie").value = data.serie;
+        document.getElementById("cnp").value = data.cnp || "";
+        document.getElementById("numar").value = data.numar || "";
+        document.getElementById("serie").value = data.serie || "";
 
     } catch (err) {
         console.error("Error fetching user data:", err);
     }
 });
 
+// Save profile changes
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -64,8 +75,6 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
     const numar = document.getElementById("numar").value;
     const serie = document.getElementById("serie").value;
 
-    console.log("Saving changes:", { phone, address, cnp, numar, serie });
-
     const data = {
         phone: phone,
         address: address,
@@ -74,8 +83,6 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
         serie: serie
     };
 
-    const dataString = JSON.stringify(data);
-
     try{
         const response = await fetch("/api/profile/updateDetails", {
             method: "PUT",
@@ -83,7 +90,7 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: dataString
+            body: JSON.stringify(data)
         });
 
         if (!response.ok) {
@@ -97,6 +104,7 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
     }
 });
 
+// Change password modal logic
 const changePasswordBtn = document.getElementById("changePasswordBtn");
 const passwordModal = document.getElementById("passwordModal");
 const closeModalBtn = document.getElementById("closeModalBtn");
@@ -136,18 +144,20 @@ savePasswordBtn.addEventListener("click", async () => {
                 currentPassword: currentPassword,
                 newPassword: newPassword
             })
-        })
+        });
         if (!response.ok) {
             throw new Error("Failed to change password");
         }
 
         passwordModal.classList.add("hidden");
+        alert("Parola a fost schimbată cu succes!");
     }catch(err){
         console.error("Error changing password:", err);
         alert("Eroare la schimbarea parolei! " + err.message);
     }
-})
+});
 
+// Delete account modal logic
 const deleteAccountBtn = document.getElementById("deleteAccount");
 const deleteModal = document.getElementById("deleteAccountModal");
 const closeDeleteBtn = document.getElementById("closeDeleteModalBtn");
@@ -156,15 +166,15 @@ const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 
 deleteAccountBtn.addEventListener("click", () => {
     deleteModal.classList.remove("hidden");
-})
+});
 
 closeDeleteBtn.addEventListener("click", () => {
     deleteModal.classList.add("hidden");
-})
+});
 
 cancelDeleteBtn.addEventListener("click", () => {
     deleteModal.classList.add("hidden");
-})
+});
 
 confirmDeleteBtn.addEventListener("click", async () => {
     try{
@@ -186,4 +196,4 @@ confirmDeleteBtn.addEventListener("click", async () => {
         console.error("Error deleting account:", err);
         alert("Eroare la stergerea contului! " + err.message);
     }
-})
+});

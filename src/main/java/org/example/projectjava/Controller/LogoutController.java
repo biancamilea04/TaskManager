@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LogoutController {
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletResponse response) {
+    public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
+        // Ștergere cookies
         Cookie cookieJwt = new Cookie("jwt", null);
         cookieJwt.setMaxAge(0);
         cookieJwt.setPath("/");
@@ -35,7 +35,15 @@ public class LogoutController {
         response.addCookie(cookieUser);
         response.addCookie(cookieRole);
 
+        // ⚠️ Ștergere sesiune HTTP (cheia pentru logica cu mesajul WebSocket)
+        HttpSession session = request.getSession(false); // false = nu crea dacă nu există
+        if (session != null) {
+            session.invalidate(); // <- distruge sesiunea, deci și "notificationSent"
+        }
+
+        // Șterge contextul de securitate Spring Security
         SecurityContextHolder.clearContext();
+
         return ResponseEntity.ok("Logged out successfully");
     }
 }
