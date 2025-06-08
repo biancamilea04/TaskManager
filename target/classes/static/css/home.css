@@ -10,7 +10,6 @@
     --transition: 0.18s cubic-bezier(.4,0,.2,1);
 }
 
-/* Reset & base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -23,7 +22,6 @@ html, body {
     min-height: 100vh;
 }
 
-/* Navbar */
 .navbar {
     width: 100%;
     display: flex;
@@ -344,7 +342,6 @@ html, body {
     color: var(--red);
 }
 
-/* Responsive adjustments */
 @media (max-width: 900px) {
     .content {
         padding: 1.5rem 0.6rem 1.3rem 0.6rem;
@@ -365,7 +362,6 @@ html, body {
     .info { font-size: 0.97rem; }
 }
 
-/* Show modals when needed (let JS toggle display) */
 .modal[style*="display:block"], .modal[style*="display: flex"] {
     display: flex !important;
 }

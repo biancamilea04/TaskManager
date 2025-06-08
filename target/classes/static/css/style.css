@@ -1,3 +1,14 @@
+:root {
+    --navy: #1a2238;
+    --red: #ff1e56;
+    --white: #f8f9fa;
+    --gray: #e5e8ee;
+    --mid-gray: #c7cdda;
+    --navy-accent: #304075;
+    --shadow: rgba(26,34,56,0.10);
+    --transition: 0.18s cubic-bezier(.4,0,.2,1);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,12 +17,14 @@
 }
 
 body {
+    background: linear-gradient(122deg, var(--navy) 75%, var(--red) 200%);
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    color: var(--navy);
+    min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #170024;
-    background: linear-gradient(332deg, rgba(23, 0, 36, 1) 0%, rgb(9, 18, 121) 35%, rgb(0, 126, 205) 100%);
 }
 
 .wrapper {
@@ -25,9 +38,9 @@ body {
     height: 440px;
     position: relative;
     margin: 6% auto;
-    background: rgb(4, 21, 108);
-    border: 1px solid rgb(112, 0, 23);
-    box-shadow: 0 0 15px 2px rgb(67, 0, 15);
+    background: #293767;
+    border: 1px solid #331b62;
+    box-shadow: 0 0 15px 2px #841243;
     backdrop-filter: blur(20px);
     padding: 10px;
     border-radius: 2em;
@@ -40,7 +53,7 @@ body {
     border-radius: 2em;
     position: relative;
     background-color: rgba(255, 255, 255, 0.21);
-    box-shadow: 0 0 25px 2px rgb(9, 18, 120);
+    box-shadow: 0 0 25px 2px var(--navy);
 }
 
 .toggle-btn {
