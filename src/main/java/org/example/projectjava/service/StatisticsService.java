@@ -6,10 +6,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.annotation.PostConstruct;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
-import org.example.projectjava.Model.DepartmentMembers.DepartmentMembersService;
-import org.example.projectjava.Model.Member.MemberService;
-import org.example.projectjava.Model.MemberDetails.MemberDetailsService;
-import org.example.projectjava.Model.Task.TasksService;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
@@ -21,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class StatisticsService {

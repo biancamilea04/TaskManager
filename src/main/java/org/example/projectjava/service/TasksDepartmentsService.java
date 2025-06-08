@@ -1,8 +1,8 @@
 package org.example.projectjava.service;
 
-import org.example.projectjava.Model.Department.Department;
-import org.example.projectjava.Model.Department.DepartmentRepository;
-import org.example.projectjava.Model.Task.TasksRepository;
+import org.example.projectjava.model.Department;
+import org.example.projectjava.repository.DepartmentRepository;
+import org.example.projectjava.repository.TasksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

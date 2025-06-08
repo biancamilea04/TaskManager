@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     fetchDepartmentMembers(department);
     addMemberToDepartment();
 
-    // Modal delete: adaugă ascultătorii O SINGURĂ DATĂ
     const confirmBtn = document.getElementById("confirmDeleteBtn");
     const cancelBtn = document.getElementById("cancelDeleteBtn");
     const deleteMemberModal = document.getElementById("deleteConfirmModal");
@@ -74,7 +73,6 @@ function displayMembers(data) {
         `;
         tbody.appendChild(row);
 
-        // La click pe delete, doar deschide modalul și setează memberId-ul!
         const deleteBtn = row.querySelector('.delete-btn');
         deleteBtn.addEventListener("click", (event) => {
             const memberId = event.target.getAttribute("data-id");

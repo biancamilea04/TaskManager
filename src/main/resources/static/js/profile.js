@@ -1,4 +1,4 @@
-// Navbar profile dropdown logic
+
 const profileBtn = document.getElementById("profileBtn");
 const profileDropdown = document.getElementById("profileDropdown");
 
@@ -26,12 +26,10 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
     }
 });
 
-// Home navigation
 document.getElementById("goToHome").addEventListener("click", () => {
     window.location.href = "/home";
 });
 
-// Fetch and display user data
 window.addEventListener("DOMContentLoaded", async () => {
     try {
         const response = await fetch("/api/profile/userData", {
@@ -65,7 +63,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// Save profile changes
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -104,7 +101,6 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
     }
 });
 
-// Change password modal logic
 const changePasswordBtn = document.getElementById("changePasswordBtn");
 const passwordModal = document.getElementById("passwordModal");
 const closeModalBtn = document.getElementById("closeModalBtn");
@@ -157,7 +153,6 @@ savePasswordBtn.addEventListener("click", async () => {
     }
 });
 
-// Delete account modal logic
 const deleteAccountBtn = document.getElementById("deleteAccount");
 const deleteModal = document.getElementById("deleteAccountModal");
 const closeDeleteBtn = document.getElementById("closeDeleteModalBtn");

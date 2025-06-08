@@ -1,4 +1,4 @@
-// Modal logic for Add Task
+
 const modal = document.getElementById("taskModal");
 const openBtn = document.querySelector(".add-task-btn");
 const closeBtn = document.getElementById("closeModal");
@@ -8,6 +8,7 @@ const card = document.createElement("div");
 card.classList.add("task-card");
 
 openBtn.addEventListener("click", () => {
+    loadDepartments().then(r => {console.log("")});
     modal.style.display = "flex";
 });
 
@@ -61,8 +62,11 @@ async function saveTask(taskData) {
         description: taskData.desc,
         status: taskData.status,
         dateTask: taskData.period,
-        numberActivityHours: parseFloat(taskData.hours)
+        numberActivityHours: parseFloat(taskData.hours),
+        departmentId: parseInt(taskData.departmentId)
     };
+
+    console.log(taskData.departmentId);
 
     try {
         const response = await fetch("/api/tasks", {
@@ -93,8 +97,9 @@ document.getElementById("taskForm").addEventListener("submit", async function (e
     const status = document.getElementById("taskStatus").value;
     const period = document.getElementById("taskPeriod").value;
     const hours = document.getElementById("taskHours").value;
+    const departmentId = document.getElementById("taskDepartment").value;
 
-    const taskPayload = {name, desc, status, period, hours};
+    const taskPayload = {name, desc, status, period, hours,departmentId};
 
     try {
         let savedTask = await saveTask(taskPayload);
@@ -105,9 +110,9 @@ document.getElementById("taskForm").addEventListener("submit", async function (e
             status: savedTask.status,
             period: savedTask.dateTask,
             hours: savedTask.numberActivityHours,
-            memberTaskNumber: savedTask.memberTaskNumber
+            memberTaskNumber: savedTask.memberTaskNumber,
         });
-        // Add new card at the top of the list
+
         taskList.insertBefore(newCard, taskList.firstChild);
 
         modal.style.display = "none";
@@ -164,7 +169,6 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 });
 
-// Edit Task Modal
 const editModal = document.getElementById("editTaskModal");
 const closeEditBtn = document.getElementById("closeEditModal");
 
@@ -229,7 +233,6 @@ document.getElementById("editTaskForm").addEventListener("submit", async functio
     }
 });
 
-// Delete Task Modal
 const deleteModal = document.getElementById("deleteConfirmModal");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
@@ -271,7 +274,6 @@ window.addEventListener("click", (e) => {
     }
 });
 
-// Profile menu logic
 const profileBtn = document.getElementById("profileBtn");
 const profileDropdown = document.getElementById("profileDropdown");
 
@@ -300,7 +302,6 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
     }
 });
 
-// Fetch voting right info
 document.addEventListener("DOMContentLoaded", function() {
     const jwt = localStorage.getItem("jwt");
 
@@ -319,7 +320,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 });
 
-// Notifications via WebSocket
 document.addEventListener('DOMContentLoaded', function () {
     const socket = new SockJS('/ws');
     const stompClient = Stomp.over(socket);
@@ -345,3 +345,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 5000);
     }
 });
+
+async function loadDepartments() {
+    console.log( "[1]" + document.getElementById("taskDepartment"));
+    try {
+        const response = await fetch('/api/member/departments', {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            }
+        });
+
+        let departments = [];
+        if (response.status === 200) {
+            departments = await response.json();
+        } else if (response.status === 404) {
+            departments = [];
+        } else {
+            alert("Eroare");
+            return;
+        }
+
+        const select = document.getElementById("taskDepartment");
+        departments.forEach(dep => {
+            const option = document.createElement("option");
+            option.value = dep.id;
+            option.textContent = dep.name;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        alert(error.message);
+    }
+}

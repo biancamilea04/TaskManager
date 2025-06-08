@@ -1,17 +1,13 @@
 package org.example.projectjava.service;
 
-import org.example.projectjava.Model.Member.Member;
-import org.example.projectjava.Model.Member.MemberRepository;
-import org.example.projectjava.Model.Member.MemberService;
-import org.example.projectjava.Model.MemberDetails.MemberDetailsRepository;
-import org.example.projectjava.Model.Task.TasksRepository;
+import org.example.projectjava.model.Member;
+import org.example.projectjava.repository.MemberDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class ActivityHoursMembersService {

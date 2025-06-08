@@ -10,7 +10,6 @@
     --transition: 0.18s cubic-bezier(.4,0,.2,1);
 }
 
-/* Reset & base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -23,7 +22,6 @@ html, body {
     min-height: 100vh;
 }
 
-/* Header (Navbar style) */
 header {
     width: 100%;
     display: flex;
@@ -82,7 +80,6 @@ header {
     color: #fff;
 }
 
-/* Container & content */
 main {
     display: flex;
     justify-content: center;
@@ -207,7 +204,6 @@ main {
     padding: 8px 0 8px 6px;
 }
 
-/* Scrollbar styling for departments grid */
 #departments-container.departments-grid {
     scrollbar-width: thin;
     scrollbar-color: var(--mid-gray) #f3f3f8;
@@ -224,8 +220,6 @@ main {
 #departments-container.departments-grid::-webkit-scrollbar-thumb:hover {
     background: var(--red);
 }
-
-/* Responsive adjustments */
 @media (max-width: 1100px) {
     .container {
         flex-direction: column;
@@ -253,5 +247,49 @@ main {
     }
     .content-section h1 {
         font-size: 1.35rem;
+    }
+}
+
+.user-menu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px var(--shadow);
+    min-width: 120px;
+    overflow: hidden;
+    z-index: 20;
+    flex-direction: column;
+}
+.user-dropdown button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--navy);
+    font-size: 1rem;
+    padding: 0.85rem 1.2rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background var(--transition), color var(--transition);
+}
+.btn:hover, .user-dropdown button:hover {
+    background: #d6133b;
+    color: #fff;
+}
+.user-menu-wrapper:focus-within .user-dropdown,
+.user-menu-wrapper:hover .user-dropdown {
+    display: flex;
+}
+
+@media (max-width: 700px) {
+    .user-dropdown {
+        min-width: 100px;
+        right: 0;
     }
 }

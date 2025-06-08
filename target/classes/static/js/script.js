@@ -10,17 +10,47 @@ deleteCookie('jwt');
 deleteCookie('user');
 deleteCookie('role');
 
+function showMessage(message, type = "error") {
+    let oldPopup = document.getElementById("popup-message");
+    if (oldPopup) oldPopup.remove();
+
+   let overlay = document.createElement("div");
+    overlay.id = "popup-message";
+    overlay.className = "popup-overlay";
+
+   let popup = document.createElement("div");
+    popup.className = `popup-message-box ${type === "success" ? "success" : "error"}`;
+
+   let closeBtn = document.createElement("span");
+    closeBtn.className = "popup-close-btn";
+    closeBtn.innerHTML = "&times;";
+    closeBtn.onclick = () => overlay.remove();
+
+    let text = document.createElement("span");
+    text.innerText = message;
+
+    popup.appendChild(closeBtn);
+    popup.appendChild(text);
+    overlay.appendChild(popup);
+
+    document.body.appendChild(overlay);
+
+    setTimeout(() => {
+        if(overlay.parentNode) overlay.remove();
+    }, 4000);
+}
+
+
 const submitButton = document.getElementById("submit");
 submitButton.addEventListener('click', () => {
-    console.log("submitLogin apelat");
 
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    console.log("Login cu:", email, password);
+    console.log("loginController cu:", email, password);
 
     if (!email || !password) {
-        alert("Te rugăm să completezi toate câmpurile.");
+        showMessage("Te rugam să completezi toate campurile.");
         return;
     }
 
@@ -52,12 +82,11 @@ submitButton.addEventListener('click', () => {
         })
         .then(data => {
             localStorage.setItem("jwt", data.jwt);
-            alert("Login reușit!");
             window.location.replace("/home");
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Eroare la autentificare! " + error.message);
+            showMessage("Eroare la autentificare! " + error.message);
         });
 });
 
@@ -77,17 +106,17 @@ registerButton.addEventListener('click',(event) =>{
     console.log("Register cu:", name, surname, email, password);
 
     if (!name || !surname || !email || !password) {
-        alert("Please fill in all fields");
+        showMessage("Please fill in all fields");
         return;
     }
 
     if (!validateEmail(email)) {
-        alert("Email invalid!");
+        showMessage("Email invalid!");
         return;
     }
 
     if (password !== confirmPassword) {
-        alert("Parolele nu coincid!");
+        showMessage("Parolele nu coincid!");
         return;
     }
 
@@ -107,7 +136,6 @@ registerButton.addEventListener('click',(event) =>{
     }).then(response => {
         console.log(response);
         if (response.ok) {
-            console.log("Register reușit");
             window.location.replace("/login");
             return response.text();}
         return response.text().then(errorMessage => {
@@ -115,11 +143,9 @@ registerButton.addEventListener('click',(event) =>{
         });
     })
         .then(data => {
-            console.log(data);
-            alert("Register reusit!");
         })
         .catch(error => {
-            console.error("Error:" + error);
+            showMessage("Error:" + error);
         });
 });
 

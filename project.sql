@@ -166,7 +166,7 @@ CREATE OR REPLACE TRIGGER trg_insert_member_details
     FOR EACH ROW
 BEGIN
     INSERT INTO member_details (member_id, status)
-    VALUES (:NEW.id_member, 'member');
+    VALUES (:NEW.id_member, 'MEMBER');
 END;
 
 --imi setez statusul taskului
@@ -620,6 +620,12 @@ END;
 begin
     DBMS_OUTPUT.PUT_LINE('Număr total de membri: ' || get_members_count);
 end;
+
+UPDATE member_details
+SET status = 'MEMBER'
+WHERE status = 'membru aspirant';
+
+commit;
 
 
 
