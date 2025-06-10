@@ -54,6 +54,10 @@
         <span class="close-button" id="closeModal">&times;</span>
         <h2>Adaugă un nou task</h2>
         <form id="taskForm">
+            <label for="taskDepartment">Departament:</label>
+            <select id="taskDepartment" name="departmentId" required>
+            </select>
+
             <label for="taskName">Nume task:</label>
             <input type="text" id="taskName" name="taskName" required>
 
@@ -84,6 +88,7 @@
         <span class="close-button" id="closeEditModal">&times;</span>
         <h2>Editeaza task</h2>
         <form id="editTaskForm">
+
             <label for="editTaskName">Nume task:</label>
             <input type="text" id="editTaskName" name="editTaskName" required>
 
@@ -163,8 +168,8 @@
                 notification.style.opacity = '0';
                 setTimeout(() => {
                     notification.style.display = 'none';
-                }, 500); // timpul necesar pentru fade-out
-            }, 5000); // 5 secunde
+                }, 500);
+            }, 5000);
         }
     });
 
